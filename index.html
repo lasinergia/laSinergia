@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz SINERG.ia — ¿Desde dónde estás llegando a la IA?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep: #665a9c;
+    --mid: #928ac2;
+    --pink: #f7c4e9;
+    --blush: #fbdad2;
+    --dark: #2d2d2d;
+    --white: #ffffff;
+    --off: #faf8fc;
+    --muted: #7a7490;
+    --border: rgba(102,90,156,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--off);
+    color: var(--dark);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #665a9c 0%, #928ac2 45%, #f7c4e9 80%, #fbdad2 100%);
+    padding: 3rem 1.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 60px;
+    background: var(--off);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .logo-text {
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    text-shadow: 0 2px 20px rgba(45,45,45,0.18);
+  }
+  .logo-text em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--pink);
+  }
+  .logo-stars {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+  .header-ep {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    color: var(--white);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.35);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── INTRO ── */
+  .intro-wrap {
+    padding: 3rem 0 4rem;
+    text-align: center;
+  }
+  .intro-title {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 400;
+    color: var(--deep);
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+  }
+  .intro-title em { font-style: italic; color: var(--mid); }
+  .intro-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    font-weight: 300;
+  }
+  .intro-desc strong { color: var(--deep); font-weight: 600; }
+
+  .profile-preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 2rem 0 2.5rem;
+    text-align: left;
+  }
+  .profile-chip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+  }
+  .chip-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+  .chip-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--deep);
+    margin-bottom: 0.2rem;
+  }
+  .chip-hint { font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
+
+  .start-btn {
+    background: linear-gradient(135deg, var(--deep) 0%, var(--mid) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 100px;
+    padding: 16px 40px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: 0 4px 20px rgba(102,90,156,0.3);
+  }
+  .start-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .start-btn:active { transform: translateY(0); }
+  .meta-note {
+    font-size: 0.8rem; color: var(--muted); margin-top: 1rem; font-weight: 300;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-wrap { padding: 2.5rem 0 4rem; }
+
+  .progress-area { margin-bottom: 2.5rem; }
+  .progress-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-num {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--mid); font-weight: 600;
+  }
+  .progress-pct { font-size: 0.75rem; color: var(--muted); font-weight: 300; }
+  .progress-track {
+    height: 3px;
+    background: rgba(102,90,156,0.15);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 3px; background: linear-gradient(90deg, var(--deep), var(--mid));
+    border-radius: 3px; transition: width 0.4s ease;
+  }
+
+  .question-label {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--mid); font-weight: 600; margin-bottom: 0.75rem;
+  }
+  .question-text {
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    font-weight: 400; color: var(--dark);
+    line-height: 1.45; margin-bottom: 2rem;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    display: flex; align-items: flex-start; gap: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    text-align: left;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: var(--dark);
+    line-height: 1.55;
+  }
+  .opt:hover { border-color: var(--mid); background: #faf8ff; }
+  .opt.selected {
+    border-color: var(--deep);
+    background: rgba(102,90,156,0.07);
+  }
+  .opt-letter {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--off); border: 1px solid var(--border);
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+    color: var(--muted); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .opt.selected .opt-letter {
+    background: var(--deep); color: var(--white); border-color: var(--deep);
+  }
+  .opt-text { flex: 1; }
+
+  .nav-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 2rem;
+  }
+  .nav-back {
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 100px; padding: 10px 22px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem; color: var(--muted); cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .nav-back:hover { background: var(--white); border-color: var(--mid); }
+  .nav-back:disabled { opacity: 0.3; cursor: default; }
+  .nav-next {
+    background: linear-gradient(135deg, var(--deep), var(--mid));
+    color: var(--white); border: none; border-radius: 100px;
+    padding: 12px 30px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem; font-weight: 400; cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    box-shadow: 0 4px 16px rgba(102,90,156,0.25);
+  }
+  .nav-next:hover { opacity: 0.9; transform: translateY(-1px); }
+  .nav-next:disabled { opacity: 0.35; cursor: default; transform: none; box-shadow: none; }
+
+  /* ── RESULTS ── */
+  .result-wrap { padding: 2.5rem 0 5rem; }
+
+  .result-header { text-align: center; margin-bottom: 3rem; }
+  .result-eyebrow {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--mid); font-weight: 600; margin-bottom: 0.6rem;
+  }
+  .result-profile-name {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 400; color: var(--deep);
+    line-height: 1.25; margin-bottom: 1.25rem;
+  }
+  .result-profile-name em { font-style: italic; }
+  .result-icon-badge {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--blush));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin: 0 auto 1.25rem;
+    border: 2px solid rgba(102,90,156,0.15);
+  }
+
+  .result-desc {
+    font-size: 1.05rem; color: var(--dark);
+    line-height: 1.85; font-weight: 300;
+    max-width: 560px; margin: 0 auto;
+  }
+
+  .result-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--deep), var(--pink));
+    margin: 2.5rem auto;
+    border-radius: 2px;
+  }
+
+  .result-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+  }
+  .section-label {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+    font-weight: 600; color: var(--mid); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .section-label::before {
+    content: ''; width: 14px; height: 2px;
+    background: var(--mid); display: inline-block; border-radius: 2px;
+  }
+  .section-text { font-size: 0.95rem; color: var(--dark); line-height: 1.75; font-weight: 300; }
+
+  .mantra-block {
+    background: linear-gradient(135deg, rgba(102,90,156,0.07), rgba(247,196,233,0.2));
+    border: 1px solid rgba(102,90,156,0.2);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+  .mantra-text {
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    font-style: italic; font-weight: 300;
+    color: var(--deep); line-height: 1.6;
+  }
+
+  .primer-paso {
+    background: linear-gradient(135deg, var(--deep) 0%, var(--mid) 100%);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+  .primer-label {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em;
+    font-weight: 600; opacity: 0.75; margin-bottom: 0.6rem;
+  }
+  .primer-text { font-size: 0.95rem; line-height: 1.75; font-weight: 300; opacity: 0.92; }
+
+  .result-footer { text-align: center; padding-top: 1rem; }
+  .cta-text {
+    font-size: 1rem; color: var(--muted); line-height: 1.75;
+    font-weight: 300; max-width: 480px; margin: 0 auto 1.5rem;
+  }
+  .cta-text strong { color: var(--deep); }
+  .restart-btn {
+    background: transparent; border: 1.5px solid var(--mid);
+    border-radius: 100px; padding: 12px 28px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem; color: var(--mid); cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .restart-btn:hover { background: var(--mid); color: var(--white); }
+
+  /* ── MIXED RESULT ── */
+  .mixed-profiles {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin: 1.5rem 0;
+  }
+  .mixed-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .mixed-card-label {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    font-weight: 600; color: var(--mid); margin-bottom: 0.4rem;
+  }
+  .mixed-card-name { font-size: 0.9rem; font-weight: 400; color: var(--deep); margin-bottom: 0.4rem; }
+  .mixed-card-text { font-size: 0.82rem; color: var(--muted); line-height: 1.55; font-weight: 300; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 300;
+    border-top: 1px solid var(--border);
+  }
+  footer span { color: var(--mid); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    .profile-preview { grid-template-columns: 1fr; }
+    .mixed-profiles { grid-template-columns: 1fr; }
+    header { padding: 2.5rem 1.25rem 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-stars">✦ ✧ ✦</div>
+  <div class="logo-text">SINERG<em>.ia</em></div>
+  <div style="margin-top: 0.6rem;">
+    <span class="header-ep">Episodio 2 · Quiz interactivo</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- INTRO SCREEN -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-wrap">
+      <h1 class="intro-title">¿Desde dónde estás<br><em>llegando a la IA?</em></h1>
+      <p class="intro-desc">
+        Antes de usar cualquier herramienta, vale la pena saber qué quieres de ella.<br><br>
+        Este cuestionario te ayuda a descubrir tu <strong>perfil SINERG.ia</strong>: cómo piensas, qué necesitas y cómo puedes empezar a usar la inteligencia artificial de una forma que tenga sentido para ti.<br><br>
+        No hay respuestas correctas ni incorrectas. Solo distintas formas de llegar a la IA.
+      </p>
+
+      <div class="profile-preview">
+        <div class="profile-chip">
+          <div class="chip-icon">🌀</div>
+          <div class="chip-name">Alma creativa</div>
+          <div class="chip-hint">Mil ideas, necesita estructura y forma</div>
+        </div>
+        <div class="profile-chip">
+          <div class="chip-icon">🧭</div>
+          <div class="chip-name">Alma curiosa</div>
+          <div class="chip-hint">Quiere explorar y perderle el miedo</div>
+        </div>
+        <div class="profile-chip">
+          <div class="chip-icon">🔍</div>
+          <div class="chip-name">Mente crítica</div>
+          <div class="chip-hint">Analiza, verifica y no le cree todo</div>
+        </div>
+        <div class="profile-chip">
+          <div class="chip-icon">🛠️</div>
+          <div class="chip-name">Mente práctica</div>
+          <div class="chip-hint">Busca soluciones concretas y eficiencia</div>
+        </div>
+      </div>
+
+      <button class="start-btn" onclick="startQuiz()">
+        Descubrir mi perfil &rarr;
+      </button>
+      <p class="meta-note">9 preguntas · 4–5 minutos</p>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="screen" id="screen-quiz">
+    <div class="quiz-wrap">
+      <div class="progress-area">
+        <div class="progress-meta">
+          <span class="progress-num" id="prog-label">Pregunta 1 de 9</span>
+          <span class="progress-pct" id="prog-pct">0% completado</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="prog-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="question-label" id="q-label">Pregunta 1</div>
+      <div class="question-text" id="q-text"></div>
+      <div class="options" id="q-options"></div>
+
+      <div class="nav-row">
+        <button class="nav-back" id="btn-back" onclick="goBack()" disabled>← Anterior</button>
+        <button class="nav-next" id="btn-next" onclick="goNext()" disabled>Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="screen" id="screen-result">
+    <div class="result-wrap" id="result-content"></div>
+  </div>
+
+</div>
+
+<footer>
+  Un proyecto de <span>SINERG.ia</span> · Episodio 2: <em>¿La IA piensa?</em>
+</footer>
+
+<script>
+const QUESTIONS = [
+  {
+    text: "Cuando escuchas por primera vez que la IA puede hacer casi cualquier cosa, ¿cuál es tu primera reacción?",
+    opts: [
+      { letter: "A", text: "Empiezo a imaginar todo lo que podría hacer con eso para mis proyectos.", p: "A" },
+      { letter: "B", text: "Me da curiosidad. ¿Cómo funciona? ¿Puedo probarlo?", p: "B" },
+      { letter: "C", text: "¿Cualquier cosa? Espera... eso necesita una aclaración.", p: "C" },
+      { letter: "D", text: "¿Y para qué sirve en la práctica, en el trabajo real?", p: "D" }
+    ]
+  },
+  {
+    text: "Si pudieras usar una herramienta de IA hoy, ¿para qué la usarías primero?",
+    opts: [
+      { letter: "A", text: "Para organizar todas las ideas que tengo en mi cabeza y darles forma.", p: "A" },
+      { letter: "B", text: "Para explorar qué puede hacer y ver qué pasa.", p: "B" },
+      { letter: "C", text: "Para verificar información y revisar que lo que genera sea confiable.", p: "C" },
+      { letter: "D", text: "Para resolver algo concreto: un resumen, un plan, un análisis.", p: "D" }
+    ]
+  },
+  {
+    text: "¿Qué te frena más a la hora de usar IA?",
+    opts: [
+      { letter: "A", text: "Que lo que crea no capture realmente mi voz o mi estilo.", p: "A" },
+      { letter: "B", text: "No saber por dónde empezar ni qué herramienta elegir.", p: "B" },
+      { letter: "C", text: "Que genere información incorrecta y yo no me dé cuenta.", p: "C" },
+      { letter: "D", text: "No tener claro si realmente me va a ahorrar tiempo.", p: "D" }
+    ]
+  },
+  {
+    text: "Para aprender algo nuevo, ¿qué tipo de ejemplo necesitas?",
+    opts: [
+      { letter: "A", text: "Uno visual, creativo, que me muestre posibilidades y me inspire.", p: "A" },
+      { letter: "B", text: "Uno práctico que pueda replicar yo mismo/a para ver qué pasa.", p: "B" },
+      { letter: "C", text: "Uno con fuentes claras, contexto y explicación de los límites.", p: "C" },
+      { letter: "D", text: "Uno que resuelva un problema real que yo ya tengo.", p: "D" }
+    ]
+  },
+  {
+    text: "¿Cuál de estas frases te suena más familiar?",
+    opts: [
+      { letter: "A", text: "Tengo mil ideas en la cabeza, pero me cuesta aterrizarlas.", p: "A" },
+      { letter: "B", text: "Siento que me estoy perdiendo algo, quiero entender de qué va esto.", p: "B" },
+      { letter: "C", text: "No confío fácilmente. Prefiero revisar antes de creerle a algo.", p: "C" },
+      { letter: "D", text: "No necesito teoría, necesito herramientas que funcionen.", p: "D" }
+    ]
+  },
+  {
+    text: "Si la IA te da una respuesta, ¿cuál es tu primer instinto?",
+    opts: [
+      { letter: "A", text: "La tomo como punto de partida y le agrego mi toque personal.", p: "A" },
+      { letter: "B", text: "Me pregunto si puedo pedirle algo más interesante.", p: "B" },
+      { letter: "C", text: "La reviso, la comparo y busco confirmarla antes de usarla.", p: "C" },
+      { letter: "D", text: "Evalúo si realmente me sirve para lo que necesito.", p: "D" }
+    ]
+  },
+  {
+    text: "¿Qué rol le darías a la IA en tu vida?",
+    opts: [
+      { letter: "A", text: "Asistente creativa: me ayuda a desarrollar y organizar mis ideas.", p: "A" },
+      { letter: "B", text: "Compañera de exploración: me muestra nuevos caminos.", p: "B" },
+      { letter: "C", text: "Herramienta de análisis: me ayuda a pensar mejor, no a pensar por mí.", p: "C" },
+      { letter: "D", text: "Herramienta de productividad: hace lo que me lleva mucho tiempo.", p: "D" }
+    ]
+  },
+  {
+    text: "¿Qué es lo que más te gustaría lograr usando IA en los próximos meses?",
+    opts: [
+      { letter: "A", text: "Crear más contenido, proyectos y materiales con menos fricción.", p: "A" },
+      { letter: "B", text: "Entender qué es la IA de verdad y perderle el miedo.", p: "B" },
+      { letter: "C", text: "Aprender a usarla de forma crítica, sin depender de ella ni creerle todo.", p: "C" },
+      { letter: "D", text: "Aplicarla a mi trabajo o estudio de forma concreta y eficiente.", p: "D" }
+    ]
+  },
+  {
+    text: "Cuando la IA se equivoca o da una respuesta rara, ¿qué piensas?",
+    opts: [
+      { letter: "A", text: "Qué interesante. A veces los errores me llevan a ideas inesperadas.", p: "A" },
+      { letter: "B", text: "Normal, todavía está aprendiendo. Veo qué pasó.", p: "B" },
+      { letter: "C", text: "Exactamente por eso hay que verificar siempre. No es un oráculo.", p: "C" },
+      { letter: "D", text: "Si falla así, no me sirve. Necesito algo confiable.", p: "D" }
+    ]
+  }
+];
+
+const PROFILES = {
+  A: {
+    name: "Alma creativa con muchas ideas",
+    icon: "🌀",
+    desc: "Tienes proyectos, ideas y posibilidades que se acumulan más rápido de lo que puedes desarrollarlos. Tu mayor fortaleza es la visión; tu mayor desafío, la estructura. La IA puede ser ese espacio donde por fin le das forma a todo lo que tienes adentro.",
+    usar: "Úsala para organizar, estructurar y desarrollar. Puedes hablarle como a un asistente creativo: comparte tus ideas en bruto y pídele que las ordene, las desarrolle o las conecte. También puede ayudarte a crear contenido, escribir borradores y planear proyectos paso a paso.",
+    cuidar: "Cuida que no reemplace tu voz. La IA no siente, no tiene intuición ni vivencias, así que lo que genera siempre necesita tu sello personal. Revisa y ajusta: el resultado final debe seguir siendo tuyo.",
+    mantra: "\"La IA organiza mis ideas. Yo les doy vida.\"",
+    paso: "Abre ChatGPT o Claude y cuéntale un proyecto que tienes en mente pero nunca lograste ordenar. Descríbelo tal como lo piensas. Pídele que te haga un esquema con pasos concretos."
+  },
+  B: {
+    name: "Alma curiosa exploradora",
+    icon: "🧭",
+    desc: "Tienes ganas de entender, de experimentar, de descubrir qué puede hacer la IA de verdad. No necesitas saber todo antes de empezar; necesitas un buen punto de entrada. Tu fortaleza es la apertura; tu riesgo, perderte en posibilidades sin aterrizarlas.",
+    usar: "Empieza explorando sin presión. Pídele a la IA que te explique algo que te genera curiosidad, que te recomiende por dónde empezar, que te muestre ejemplos de lo que puede hacer. Cada sesión es un experimento.",
+    cuidar: "Cuida de no quedarte solo en el modo exploración. En algún momento vas a querer anclar la curiosidad en algo concreto que te sirva. La IA es más útil cuando le pides algo específico.",
+    mantra: "\"Cada pregunta que hago es un paso que me lleva más lejos.\"",
+    paso: "Busca una herramienta gratuita como ChatGPT o Claude, crea una cuenta y escribe: \"Soy nueva/nuevo en esto, ¿qué cosas puedo hacer contigo?\" Deja que te sorprenda la respuesta."
+  },
+  C: {
+    name: "Mente crítica verificadora",
+    icon: "🔍",
+    desc: "Te acercas a la IA con los ojos bien abiertos. Te interesa, pero no le crees todo. Necesitas entender cómo funciona, qué límites tiene y cuándo puede fallar. Esa mirada crítica es un superpoder que muy poca gente tiene al empezar.",
+    usar: "Úsala como apoyo para pensar mejor, no para reemplazar tu criterio. Puedes pedirle que te muestre fuentes, que explique su razonamiento o que te presente distintas perspectivas sobre un tema. La IA es mejor cuando la usas como punto de partida, no como punto de llegada.",
+    cuidar: "Cuida de no quedarte solo en el análisis sin llegar a la acción. La IA tiene límites, sí, pero también tiene usos muy valiosos. La clave está en usarla con criterio, no en evitarla.",
+    mantra: "\"La verifico porque me importa lo que hago con ella.\"",
+    paso: "Toma un tema que conozcas bien y pídele a la IA que te explique algo sobre ese tema. Luego verifica una afirmación que haya hecho. Ese ejercicio te va a dar una medida real de cuánto puedes confiar en ella."
+  },
+  D: {
+    name: "Mente práctica resolutiva",
+    icon: "🛠️",
+    desc: "Para ti, lo importante es que funcione. No necesitas entender cada detalle técnico ni explorar por explorar: quieres herramientas concretas para problemas concretos. Tu fortaleza es la eficiencia; tu riesgo, no aprovechar todo el potencial de la IA por ir directo al resultado.",
+    usar: "Úsala para automatizar tareas repetitivas, generar resúmenes, hacer análisis rápidos, estructurar planes y organizar información. Cuanto más específica sea tu instrucción, mejor será el resultado.",
+    cuidar: "Cuida de no tratarla como una máquina de respuestas automáticas sin revisión. La IA puede ahorrarte tiempo, pero el criterio de qué es útil y qué no, sigue siendo tuyo.",
+    mantra: "\"La IA hace en minutos lo que a mí me toma horas. Yo decido qué hacer con eso.\"",
+    paso: "Identifica una tarea de tu trabajo o estudio que te consume demasiado tiempo. Descríbesela a ChatGPT o Claude con todo el detalle posible y pídele que la resuelva. Evalúa el resultado y ajusta."
+  }
+};
+
+const MIXED = {
+  AB: { name: "Creativa exploradora", A: "Alma creativa", B: "Alma curiosa", desc: "Tienes muchas ideas y también muchas ganas de descubrir. Usas la IA como un espacio de juego y creación al mismo tiempo. Lo tuyo es el movimiento: pensar, probar, generar." },
+  AC: { name: "Creativa con criterio", A: "Alma creativa", B: "Mente crítica", desc: "Creas con libertad, pero no sueltas el ojo crítico. Generas ideas y después las revisas con cuidado antes de lanzarlas. Esa combinación es especialmente valiosa." },
+  AD: { name: "Creativa estratégica", A: "Alma creativa", B: "Mente práctica", desc: "Tienes visión y también piensas en resultados concretos. Combinas la creatividad con una orientación clara hacia lo que funciona. La IA puede ser tu aliada perfecta." },
+  BC: { name: "Exploradora consciente", A: "Alma curiosa", B: "Mente crítica", desc: "Quieres entender, pero no te conformas con cualquier respuesta. Exploras con curiosidad y con cautela al mismo tiempo. Eso te da perspectiva." },
+  BD: { name: "Aprendiz práctica", A: "Alma curiosa", B: "Mente práctica", desc: "Quieres aprender haciendo. La teoría te importa solo si te sirve para aplicarla a algo real. Tu forma de aprender es lanzarte y ver qué pasa." },
+  CD: { name: "Analítica resolutiva", A: "Mente crítica", B: "Mente práctica", desc: "Analizas con cuidado y actúas con eficiencia. Usas la IA como herramienta de apoyo al pensamiento, no como atajo. Eso es exactamente lo que recomendamos." }
+};
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startQuiz() {
+  current = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  renderQuestion();
+  showScreen('quiz');
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[current];
+  const total = QUESTIONS.length;
+  const pct = Math.round((current / total) * 100);
+
+  document.getElementById('prog-label').textContent = 'Pregunta ' + (current+1) + ' de ' + total;
+  document.getElementById('prog-pct').textContent = pct + '% completado';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('q-label').textContent = 'Pregunta ' + (current+1);
+  document.getElementById('q-text').textContent = q.text;
+
+  const container = document.getElementById('q-options');
+  container.innerHTML = '';
+  q.opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt' + (answers[current] === o.p ? ' selected' : '');
+    btn.innerHTML = '<span class="opt-letter">' + o.letter + '</span><span class="opt-text">' + o.text + '</span>';
+    btn.onclick = () => selectAnswer(o.p);
+    container.appendChild(btn);
+  });
+
+  document.getElementById('btn-back').disabled = current === 0;
+  document.getElementById('btn-next').disabled = answers[current] === null;
+  document.getElementById('btn-next').textContent = current === total - 1 ? 'Ver mi perfil →' : 'Siguiente →';
+}
+
+function selectAnswer(p) {
+  answers[current] = p;
+  document.querySelectorAll('.opt').forEach((btn, i) => {
+    btn.classList.toggle('selected', QUESTIONS[current].opts[i].p === p);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+function goBack() {
+  if (current > 0) { current--; renderQuestion(); }
+}
+
+function goNext() {
+  if (answers[current] === null) return;
+  if (current < QUESTIONS.length - 1) { current++; renderQuestion(); }
+  else showResult();
+}
+
+function getResult() {
+  const counts = { A: 0, B: 0, C: 0, D: 0 };
+  answers.forEach(a => { if (a) counts[a]++; });
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  if (sorted[0][1] === sorted[1][1]) {
+    const pair = [sorted[0][0], sorted[1][0]].sort().join('');
+    return { type: 'mixed', pair, counts };
+  }
+  return { type: 'single', profile: sorted[0][0], counts };
+}
+
+function showResult() {
+  const result = getResult();
+  const el = document.getElementById('result-content');
+
+  if (result.type === 'mixed') {
+    const m = MIXED[result.pair] || { name: 'Perfil mixto', desc: 'Combinas rasgos de dos perfiles complementarios.' };
+    const pA = PROFILES[result.pair[0]];
+    const pB = PROFILES[result.pair[1]];
+    el.innerHTML = `
+      <div class="result-header">
+        <div class="result-eyebrow">Tu perfil SINERG.ia</div>
+        <div class="result-icon-badge">✦</div>
+        <h2 class="result-profile-name"><em>${m.name}</em></h2>
+        <p class="result-desc">${m.desc}</p>
+      </div>
+      <div class="result-divider"></div>
+      <div class="mantra-block">
+        <div class="mantra-text">"Lo importante no es encajar perfecto en un perfil.<br>Lo importante es entender desde dónde estás llegando a la IA."<br><em style="font-size:0.85rem; opacity:0.7;">— SINERG.ia</em></div>
+      </div>
+      <div class="mixed-profiles">
+        <div class="mixed-card">
+          <div class="mixed-card-label">Tu lado ${result.pair[0] === 'A' ? 'creativo' : result.pair[0] === 'B' ? 'curioso' : result.pair[0] === 'C' ? 'crítico' : 'práctico'}</div>
+          <div class="mixed-card-name">${pA.name}</div>
+          <div class="mixed-card-text">${pA.cuidar}</div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-label">Tu lado ${result.pair[1] === 'A' ? 'creativo' : result.pair[1] === 'B' ? 'curioso' : result.pair[1] === 'C' ? 'crítico' : 'práctico'}</div>
+          <div class="mixed-card-name">${pB.name}</div>
+          <div class="mixed-card-text">${pB.cuidar}</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <p class="cta-text">Escucha el episodio 2 de <strong>SINERG.ia</strong>: <em>¿La IA piensa?</em> y cuéntanos en los comentarios qué perfil te tocó 👇</p>
+        <button class="restart-btn" onclick="startQuiz()">Repetir el quiz</button>
+      </div>
+    `;
+  } else {
+    const p = PROFILES[result.profile];
+    el.innerHTML = `
+      <div class="result-header">
+        <div class="result-eyebrow">Tu perfil SINERG.ia</div>
+        <div class="result-icon-badge">${p.icon}</div>
+        <h2 class="result-profile-name"><em>${p.name}</em></h2>
+        <p class="result-desc">${p.desc}</p>
+      </div>
+      <div class="result-divider"></div>
+      <div class="result-section">
+        <div class="section-label">Cómo usar mejor la IA</div>
+        <div class="section-text">${p.usar}</div>
+      </div>
+      <div class="result-section">
+        <div class="section-label">Qué tener en cuenta</div>
+        <div class="section-text">${p.cuidar}</div>
+      </div>
+      <div class="mantra-block">
+        <div class="mantra-text">${p.mantra}</div>
+      </div>
+      <div class="primer-paso">
+        <div class="primer-label">✦ Primer paso práctico</div>
+        <div class="primer-text">${p.paso}</div>
+      </div>
+      <div class="result-footer">
+        <p class="cta-text">Escucha el episodio 2 de <strong>SINERG.ia</strong>: <em>¿La IA piensa? Lo que nadie te dice sobre la diferencia entre inteligencia artificial e inteligencia humana</em> y cuéntanos en los comentarios qué perfil te tocó 👇</p>
+        <button class="restart-btn" onclick="startQuiz()">Repetir el quiz</button>
+      </div>
+    `;
+  }
+
+  showScreen('result');
+}
+</script>
+</body>
+</html>
