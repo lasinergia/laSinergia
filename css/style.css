@@ -381,3 +381,121 @@
     .mixed-profiles { grid-template-columns: 1fr; }
     header { padding: 2.5rem 1.25rem 3.5rem; }
   }
+
+/* ── PAGINA ERROR 404 ── */
+.page-404 {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(190, 160, 255, 0.16), transparent 35%),
+    linear-gradient(180deg, #15131d 0%, #09080d 100%);
+  color: #f7f1e8;
+}
+
+.page-404 header {
+  border-bottom: 1px solid rgba(247, 241, 232, 0.12);
+}
+
+.page-404 .logo-stars {
+  color: #d8c4ff;
+  opacity: 0.9;
+}
+
+.page-404 .logo-text {
+  color: #f7f1e8;
+}
+
+.page-404 .logo-text em {
+  color: #d8c4ff;
+}
+
+.page-404 .header-ep {
+  background: rgba(216, 196, 255, 0.1);
+  color: #d8c4ff;
+  border: 1px solid rgba(216, 196, 255, 0.22);
+}
+
+.page-404 .container {
+  position: relative;
+}
+
+.page-404 .intro-wrap {
+  position: relative;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(247, 241, 232, 0.12);
+  border-radius: 28px;
+  padding: 3rem 2rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.page-404 .intro-wrap::before {
+  content: "404";
+  position: absolute;
+  inset: auto 0 50%;
+  transform: translateY(50%);
+  font-size: clamp(7rem, 24vw, 18rem);
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(216, 196, 255, 0.055);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-404 .intro-title,
+.page-404 .intro-desc,
+.page-404 .profile-preview,
+.page-404 .start-btn {
+  position: relative;
+  z-index: 1;
+}
+
+.page-404 .intro-title {
+  color: #f7f1e8;
+}
+
+.page-404 .intro-title em {
+  color: #d8c4ff;
+}
+
+.page-404 .intro-desc {
+  color: rgba(247, 241, 232, 0.76);
+}
+
+.page-404 .profile-chip {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(216, 196, 255, 0.22);
+  box-shadow: inset 0 0 30px rgba(216, 196, 255, 0.04);
+}
+
+.page-404 .chip-icon {
+  background: rgba(216, 196, 255, 0.12);
+}
+
+.page-404 .chip-name {
+  color: #f7f1e8;
+}
+
+.page-404 .chip-hint {
+  color: rgba(247, 241, 232, 0.58);
+}
+
+.page-404 .start-btn {
+  background: #f7f1e8;
+  color: #15131d;
+  border: 1px solid rgba(247, 241, 232, 0.2);
+}
+
+.page-404 .start-btn:hover {
+  background: #d8c4ff;
+  color: #09080d;
+  transform: translateY(-2px);
+}
+
+.page-404 footer {
+  color: rgba(247, 241, 232, 0.55);
+}
+
+.page-404 footer span,
+.page-404 footer em {
+  color: #d8c4ff;
+}
