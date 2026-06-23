@@ -169,7 +169,7 @@ function enviarASheet(payload) {
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
-  }).catch(() => {});
+  }).catch(() => { });
 }
 
 function validarDatos() {
@@ -205,7 +205,7 @@ function renderPregunta() {
     <p class="q-num">Pregunta ${qActual + 1}</p>
     <p class="q-text">${q.texto}</p>
     <div class="opciones">`;
-  const letras = ["A","B","C","D"];
+  const letras = ["A", "B", "C", "D"];
   q.opciones.forEach((op, i) => {
     const isSel = sel === i ? " selected" : "";
     html += `<button class="opcion${isSel}" onclick="seleccionar(${i})">
@@ -264,11 +264,11 @@ function mostrarResultado() {
   // Enviar a Google Sheets
   enviarASheet({
     nombre: userData.nombre,
-    pais:   userData.pais,
-    email:  userData.email,
-    tel:    userData.tel || "",
+    pais: userData.pais,
+    email: userData.email,
+    tel: userData.tel || "",
     perfil: p.nombre,
-    emoji:  p.emoji
+    emoji: p.emoji
   });
 
   document.getElementById("res-nombre-perfil").textContent = p.emoji + " " + p.nombre;
@@ -403,7 +403,7 @@ function generarImagenShare(p) {
 
   // Etiqueta QUIZ
   ctx.fillStyle = p.color + "22";
-  roundRect(ctx, W/2 - 130, 455, 260, 52, 26);
+  roundRect(ctx, W / 2 - 130, 455, 260, 52, 26);
   ctx.fillStyle = p.color;
   ctx.font = "500 26px Inter, system-ui, sans-serif";
   ctx.letterSpacing = "3px";
@@ -528,7 +528,7 @@ function descargarImagen() {
 }
 
 function abrirInstagram() {
-  // descargarImagen(); <-- Deshabilitado por tiempo indefinido!
+  // descargarImagen(); <-- Deshabilitado
   setTimeout(() => {
     window.open("https://www.instagram.com/lasinerg.ia/", "_blank");
   }, 800);
@@ -542,3 +542,13 @@ function reiniciar() {
   document.getElementById("f-tel").value = "";
   irA("screen-intro");
 }
+
+/* Deshabilitar Click Derecho en Imagenes */
+document.addEventListener('DOMContentLoaded', () => {
+  const imagenes = document.querySelectorAll('img');
+  imagenes.forEach(img => {
+    img.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+  });
+});

@@ -70,3 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.head.appendChild(dotStyle);
 
 });
+
+  /* Deshabilitar Click Derecho en Imagenes */
+document.addEventListener('DOMContentLoaded', () => {
+  const imagenes = document.querySelectorAll('img');
+  imagenes.forEach(img => {
+    img.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+  });
+});
