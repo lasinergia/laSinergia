@@ -728,3 +728,76 @@ footer span { color: var(--mid); }
   .mixed-profiles { grid-template-columns: 1fr; }
   header { padding: 2.5rem 1.25rem 3.5rem; }
 }
+
+/* --- ANIMACION GOTO ID --- */
+@keyframes ping-morado {
+  0% {
+    background-color: rgba(147, 51, 234, 0.25); /* Color morado translúcido */
+    box-shadow: inset 0 0 20px rgba(147, 51, 234, 0.4), 0 0 30px rgba(147, 51, 234, 0.2);
+  }
+  40% {
+    background-color: rgba(147, 51, 234, 0.15);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 transparent, 0 0 0 transparent;
+  }
+}
+
+section:target, 
+.contact-wrap:target {
+  animation: ping-morado 1.8s ease-out;
+  border-radius: 8px;
+}
+/* --- FIN ANIMACION GOTO ID --- */
+
+/* --- ANIMACION GOTO BTN --- */
+section:target, 
+.contact-wrap:target,
+.ocard:target { /* <-- Ahora el Quiz también recibirá el flash morado */
+  animation: ping-morado 1.8s ease-out;
+  border-radius: 12px;
+}
+
+@keyframes ping-morado {
+  0% {
+    background-color: rgba(147, 51, 234, 0.25);
+    box-shadow: inset 0 0 20px rgba(147, 51, 234, 0.4), 0 0 30px rgba(147, 51, 234, 0.2);
+  }
+  40% {
+    background-color: rgba(147, 51, 234, 0.15);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 transparent, 0 0 0 transparent;
+  }
+}
+
+.btn-primary, 
+.btn-secondary, 
+.nav-quiz, 
+.nav-cta,
+.ocard {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.4s ease;
+}
+
+.btn-primary:active, 
+.btn-secondary:active, 
+.nav-quiz:active, 
+.nav-cta:active,
+.ocard:active {
+  transform: scale(0.96); /* Efecto físico de presionar */
+  animation: pulso-feedback 0.4s ease-out;
+}
+
+@keyframes pulso-feedback {
+  0% {
+    box-shadow: 0 0 0 0px rgba(147, 51, 234, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(147, 51, 234, 0);
+  }
+}
+
+/* --- FIN ANIMACION GOTO BTN --- */
