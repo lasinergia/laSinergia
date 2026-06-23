@@ -51,7 +51,27 @@ body {
   user-select: none;        
 }
 
-/* ── COMPONENTES ORIGINALES DE TU STYLES.CSS ── */
+/* ── COMPONENTES ORIGINALES ── */
+
+/* ── GO BACK BTN ── */
+
+.go-back {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--white);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  float: left;
+  margin-right: 0.5rem;
+  margin-left: 0;
+  position: relative;
+  z-index: 10;
+}
 
 /* ── HEADER ── */
 header {
