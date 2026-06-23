@@ -169,7 +169,7 @@ function enviarASheet(payload) {
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
-  }).catch(() => {}); // silencioso si falla
+  }).catch(() => {});
 }
 
 function validarDatos() {
