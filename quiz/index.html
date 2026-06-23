@@ -1,108 +1,139 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz SINERG.ia — ¿Desde dónde estás llegando a la IA?</title>
-<!-- BEGIN FAVICON LINK -->
-<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-<link rel="manifest" href="../assets/favicon/site.webmanifest">
-<!-- END OF FAVICON LINK -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¿Cuál es tu perfil de IA? — SINERG.ia</title>
+  <meta name="description" content="Descubre tu perfil de inteligencia artificial con el quiz de SINERG.ia. Alma creativa, Alma curiosa, Mente crítica o Mente práctica."/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/quiz.css" />
 </head>
 <body>
 
-<header>
-  <a href="#" class="go-back" onclick="volverInteligente(); return false;">← Volver</a>
-  <div class="logo-stars">✦ ✧ ✦</div>
-  <div class="logo-text">SINERG<em>.ia</em></div>
-  <div style="margin-top: 0.6rem;">
-    <span class="header-ep">Episodio 2 · Quiz interactivo</span>
-  </div>
-</header>
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <span style="font-size:14px;color:#928ac2;">✦✦</span>
+    <span class="nav-wm">Sinerg<em>.ia</em></span>
+  </a>
+  <a class="nav-back" href="/">← Volver al inicio</a>
+</nav>
 
-<div class="container">
+<div class="wrap">
 
-  <!-- INTRO SCREEN -->
+  <!-- ══ PANTALLA 1: INTRO ══ -->
   <div class="screen active" id="screen-intro">
-    <div class="intro-wrap">
-      <h1 class="intro-title">¿Desde dónde estás<br><em>llegando a la IA?</em></h1>
-      <p class="intro-desc">
-        Antes de usar cualquier herramienta, vale la pena saber qué quieres de ella.<br><br>
-        Este cuestionario te ayuda a descubrir tu <strong>perfil SINERG.ia</strong>: cómo piensas, qué necesitas y cómo puedes empezar a usar la inteligencia artificial de una forma que tenga sentido para ti.<br><br>
-        No hay respuestas correctas ni incorrectas. Solo distintas formas de llegar a la IA.
-      </p>
-
-      <div class="profile-preview">
-        <div class="profile-chip">
-          <div class="chip-icon">🌀</div>
-          <div class="chip-name">Alma creativa</div>
-          <div class="chip-hint">Mil ideas, necesita estructura y forma</div>
-        </div>
-        <div class="profile-chip">
-          <div class="chip-icon">🧭</div>
-          <div class="chip-name">Alma curiosa</div>
-          <div class="chip-hint">Quiere explorar y perderle el miedo</div>
-        </div>
-        <div class="profile-chip">
-          <div class="chip-icon">🔍</div>
-          <div class="chip-name">Mente crítica</div>
-          <div class="chip-hint">Analiza, verifica y no le cree todo</div>
-        </div>
-        <div class="profile-chip">
-          <div class="chip-icon">🛠️</div>
-          <div class="chip-name">Mente práctica</div>
-          <div class="chip-hint">Busca soluciones concretas y eficiencia</div>
-        </div>
+    <p class="intro-eyebrow">Quiz SINERG.ia</p>
+    <h1 class="intro-title">¿Desde dónde estás<br>llegando a la <span class="sc">IA</span>?</h1>
+    <p class="intro-sub">9 preguntas. Sin respuestas correctas o incorrectas. Solo para descubrir cuál es tu punto de partida — y hacia dónde podés ir.</p>
+    <div class="host-mini">
+      <div class="hm-photos">
+        <img class="hm-photo" src="../assets/img/persona/YANI.jpeg" alt="Yani"/>
+        <img class="hm-photo" src="../assets/img/persona/MARI.jpeg" alt="Mari"/>
       </div>
-
-      <button class="start-btn" onclick="startQuiz()">
-        Descubrir mi perfil &rarr;
-      </button>
-      <p class="meta-note">9 preguntas · 4–5 minutos</p>
+      <p class="hm-text">Creado por <strong>Yani & Mari</strong> — el podcast sobre IA y pensamiento humano que te ayuda a entender este momento histórico.</p>
     </div>
+    <button class="btn" onclick="irA('screen-datos')">Empezar el quiz →</button>
   </div>
 
-  <!-- QUIZ SCREEN -->
+  <!-- ══ PANTALLA 2: DATOS ══ -->
+  <div class="screen" id="screen-datos">
+    <p class="form-title">Antes de empezar, cuéntanos un poco de ti</p>
+    <p class="form-sub">Tus datos son solo para personalizar tu resultado. No los compartimos con nadie.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" id="f-nombre" placeholder="Tu nombre" autocomplete="given-name"/>
+      </div>
+      <div class="field">
+        <label>País</label>
+        <input type="text" id="f-pais" placeholder="Tu país" autocomplete="country-name"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>Correo electrónico</label>
+      <input type="email" id="f-email" placeholder="hola@ejemplo.com" autocomplete="email"/>
+    </div>
+    <div class="field">
+      <label>Teléfono <span class="opt">(opcional)</span></label>
+      <input type="tel" id="f-tel" placeholder="+57 300 000 0000" autocomplete="tel"/>
+    </div>
+    <button class="btn" onclick="validarDatos()">Continuar al quiz →</button>
+    <p id="datos-error" style="color:#c0392b;font-size:13px;margin-top:.75rem;display:none;">Por favor completa nombre, país y correo para continuar.</p>
+  </div>
+
+  <!-- ══ PANTALLA 3: QUIZ ══ -->
   <div class="screen" id="screen-quiz">
-    <div class="quiz-wrap">
-      <div class="progress-area">
-        <div class="progress-meta">
-          <span class="progress-num" id="prog-label">Pregunta 1 de 9</span>
-          <span class="progress-pct" id="prog-pct">0% completado</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="prog-fill" style="width: 0%"></div>
-        </div>
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-label" id="prog-label">Pregunta 1 de 9</span>
+        <span class="progress-num" id="prog-num">1 / 9</span>
       </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:11%"></div></div>
+    </div>
+    <div id="q-container"></div>
+  </div>
 
-      <div class="question-label" id="q-label">Pregunta 1</div>
-      <div class="question-text" id="q-text"></div>
-      <div class="options" id="q-options"></div>
+  <!-- ══ PANTALLA 4: RESULTADO ══ -->
+  <div class="screen" id="screen-resultado">
+    <div class="result-header">
+      <p class="result-eyebrow">Tu perfil SINERG.ia</p>
+      <div class="result-name-big" id="res-nombre-perfil"></div>
+      <p class="result-tagline" id="res-tagline"></p>
+    </div>
 
-      <div class="nav-row">
-        <button class="nav-back" id="btn-back" onclick="goBack()" disabled>← Anterior</button>
-        <button class="nav-next" id="btn-next" onclick="goNext()" disabled>Siguiente →</button>
+    <div class="result-card" id="res-card">
+      <div class="result-card-inner" id="res-inner">
+        <p class="result-desc" id="res-desc"></p>
+        <div class="result-traits" id="res-traits"></div>
+        <div class="result-tools">
+          <div class="result-tools-label">Herramientas que te van bien</div>
+          <div class="result-tools-list" id="res-tools"></div>
+        </div>
+        <p class="result-quote" id="res-quote"></p>
       </div>
     </div>
+
+    <!-- TIP + PROMPT -->
+    <div class="tip-section" id="res-tip-section">
+      <div class="tip-header">
+        <div class="tip-icon" id="res-tip-icon"></div>
+        <div>
+          <div class="tip-label" id="res-tip-label"></div>
+        </div>
+      </div>
+      <p class="tip-title" id="res-tip-title"></p>
+      <p class="tip-text" id="res-tip-text"></p>
+      <div class="prompt-box">
+        <div class="prompt-label">✦ Prompt de la semana para tu perfil</div>
+        <p class="prompt-text" id="res-prompt-text"></p>
+        <button class="copy-btn" id="copy-btn" onclick="copiarPrompt()">
+          <span>📋</span> Copiar prompt
+        </button>
+      </div>
+    </div>
+
+    <div class="share-section">
+      <div class="share-title">✨ Descarga tu tarjeta y compártela</div>
+      <p class="share-sub">Guarda tu imagen y compártela en tus historias de Instagram. ¡Etiquétanos <strong>@lasinerg.ia</strong> para que te veamos!</p>
+      <div class="share-preview"><img id="share-img-preview" alt="Tu perfil SINERG.ia"/></div>
+      <div class="share-btns">
+        <button class="btn btn-download" onclick="descargarImagen()">⬇ Descargar mi tarjeta</button>
+        <button class="btn btn-ig" onclick="abrirInstagram()">📸 Ir a Instagram stories</button>
+      </div>
+    </div>
+
+    <a class="restart-link" onclick="reiniciar()">↺ Volver a hacer el quiz</a>
   </div>
 
-  <!-- RESULT SCREEN -->
-  <div class="screen" id="screen-result">
-    <div class="result-wrap" id="result-content"></div>
-  </div>
+</div><!-- /wrap -->
 
-</div>
-
-<footer>
-  Un proyecto de <span>SINERG.ia</span> · Episodio 2: <em>¿La IA piensa?</em>
-</footer>
+<canvas id="share-canvas" width="1080" height="1920"></canvas>
 <script src="../js/script.js"></script>
-<script src="../js/functions.js"></script>
 </body>
 </html>
