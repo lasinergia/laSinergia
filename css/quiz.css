@@ -164,3 +164,15 @@
       .field-row { grid-template-columns:1fr; }
       .q-nav { flex-direction:column-reverse; }
     }
+
+    /* --- DESHABILITAR CLIC DERECHO --- */
+    img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+}
