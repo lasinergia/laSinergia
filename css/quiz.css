@@ -176,3 +176,71 @@
       -ms-user-select: none;
       user-select: none;
 }
+
+/* ── ANIMACIÓN ESCALERA (AVANCE) ── */
+#q-container {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Estado cuando la pregunta vieja se va (baja y se desvanece) */
+#q-container.anim-salir {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+/* Estado cuando la pregunta nueva entra (viene un poquito desde arriba) */
+#q-container.anim-entrar {
+  opacity: 0;
+  transform: translateY(-15px);
+}
+
+/* ── EFECTO CASCADA PARA OPCIONES (TRIVIA) ── */
+.opciones .opcion {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: aparecerOpcion 0.4s ease forwards;
+  /* El delay se controlará dinámicamente desde el JS */
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes aparecerOpcion {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── COMPORTAMIENTO POST-SELECCIÓN ── */
+
+.opcion.fade-out {
+  opacity: 0 !important;
+  transform: translateY(15px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+  pointer-events: none;
+}
+
+/* La opción seleccionada mantiene su opacidad, se agranda un pelín y hace el ping */
+.opcion.selected {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+  pointer-events: none;
+  animation: pingEfecto 0.4s ease-out forwards !important;
+}
+
+/* Animación de Ping/Pulso */
+@keyframes pingEfecto {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(102, 90, 156, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(102, 90, 156, 0);
+  }
+  100% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 0 rgba(102, 90, 156, 0);
+  }
+}

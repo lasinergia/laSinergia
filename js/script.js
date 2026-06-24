@@ -205,14 +205,20 @@ function renderPregunta() {
     <p class="q-num">Pregunta ${qActual + 1}</p>
     <p class="q-text">${q.texto}</p>
     <div class="opciones">`;
+  
   const letras = ["A", "B", "C", "D"];
+  
   q.opciones.forEach((op, i) => {
     const isSel = sel === i ? " selected" : "";
-    html += `<button class="opcion${isSel}" onclick="seleccionar(${i})">
+    // Calculamos el delay: 0.1s para la A, 0.2s para la B, etc.
+    const delayS = (i + 1) * 0.12; 
+    
+    html += `<button class="opcion${isSel}" style="--delay: ${delayS}s;" onclick="seleccionar(${i})">
       <span class="opcion-letter">${letras[i]}</span>
       <span class="opcion-text">${op.texto}</span>
     </button>`;
   });
+  
   html += `</div>
     <div class="q-nav">
       ${qActual > 0 ? `<button class="btn secondary" onclick="anterior()">← Anterior</button>` : ""}
@@ -220,22 +226,53 @@ function renderPregunta() {
         ${sel !== null ? "✦ Cargando siguiente…" : "Selecciona una opción para continuar"}
       </p>
     </div>`;
+    
   document.getElementById("q-container").innerHTML = html;
 }
 
 function seleccionar(i) {
   respuestas[qActual] = i;
-  renderPregunta();
-  // Avance automático con pequeño delay para que vean la selección
-  setTimeout(() => siguiente(), 600);
+  
+  const botones = document.querySelectorAll(".opciones .opcion");
+  
+  botones.forEach((btn, index) => {
+    btn.style.animation = "none"; 
+    
+    if (index === i) {
+      btn.classList.add("selected");
+    } else {
+      btn.classList.add("fade-out");
+    }
+  });
+
+  setTimeout(() => {
+    const container = document.getElementById("q-container");
+    if (container) container.classList.add("anim-salir");
+    
+    setTimeout(() => {
+      siguiente();
+    }, 250); 
+  }, 1000); 
 }
 
 function siguiente() {
   if (respuestas[qActual] === undefined) return;
+  
   if (qActual < preguntas.length - 1) {
     qActual++;
+    
     renderPregunta();
     window.scrollTo({ top: 0, behavior: "smooth" });
+    
+    const container = document.getElementById("q-container");
+    if (container) {
+      container.classList.remove("anim-salir");
+      container.classList.add("anim-entrar");
+      
+      container.offsetHeight; 
+      
+      container.classList.remove("anim-entrar");
+    }
   } else {
     mostrarResultado();
   }
