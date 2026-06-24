@@ -133,7 +133,7 @@ body {
   font-weight: 300; line-height: 1.15; letter-spacing: -.02em;
   color: var(--dk); margin-bottom: 1.5rem;
 }
-.sec-title .sc { font-family: var(--sc); font-weight: 700; font-style: normal; color: var(--p); font-size: 1.1em; display: block; }
+.sec-title .sc { font-family: var(--sc); font-weight: 700; font-style: normal; color: var(--p); font-size: 1.1em; display: inline; }
 .sec-lead { font-size: 16px; color: #6b6385; line-height: 1.75; max-width: 580px; font-weight: 300; }
 
 /* NOSOTRAS */
