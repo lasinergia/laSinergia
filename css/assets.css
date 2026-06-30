@@ -156,10 +156,6 @@
   text-decoration: none !important; /* Fuerza la eliminación de cualquier subrayado heredado */
 }
 
-.inner, .inner * {
-    text-decoration: none !important;
-}
-
 .inner svg.icon {
   width: 18px;
   height: 18px;
