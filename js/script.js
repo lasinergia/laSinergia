@@ -589,3 +589,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// ──────────────────────────────────────────────
+//        PAGINA DE ACTIVIDADES
+// ──────────────────────────────────────────────
+
+function toggleEpisode(btn){
+  const item = btn.closest('.episode-item');
+  if(item.classList.contains('disabled')) return;
+  const wasOpen = item.classList.contains('open');
+  item.closest('.episode-list').querySelectorAll('.episode-item.open').forEach(el => el.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+
+function copyPrompt(id, btn){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.textContent;
+    btn.textContent = "¡Copiado!";
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  });
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividades — SINERG.ia</title>
+  <meta name="description"
+    content="Las actividades prácticas de cada episodio de SINERG.ia: prompts, ejercicios y retos para llevar la IA a tu día a día.">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/actividades.css">
+</head>
+
+<body>
+
+  <header>
+    <a href="https://lasinergia.com.co/" class="logo">✦ Sinerg<em>.ia</em></a>
+    <div class="navlinks">
+      <a href="https://lasinergia.com.co/" class="back">← Volver al inicio</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Actividades</span>
+    <h1>No te quedes solo con la teoría.</h1>
+    <p>Cada episodio termina con algo para hacer, no solo para escuchar. Entra a la temporada, abre el episodio y
+      encuentra ahí el ejercicio o el prompt listo para copiar.</p>
+  </section>
+
+  <main>
+    <div class="season-grid">
+
+      <!-- ============ TEMPORADA 1 ============ -->
+      <div class="season">
+        <div class="season-head">
+          <h2 class="season-title">Temporada 1</h2>
+          <span class="season-sub">3 episodios</span>
+        </div>
+
+        <ul class="episode-list">
+
+          <!-- Episodio 1 -->
+          <li class="episode-item">
+            <button class="episode-toggle" onclick="toggleEpisode(this)">
+              <span>
+                <span class="ep-num">Episodio 1</span>
+                <span class="ep-name">Cómo llegamos a hablar de IA</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="episode-body">
+              <div class="episode-inner">
+                <span class="activity-label">Actividad práctica</span>
+
+                <ol class="step-list">
+                  <li>Abre tu modelo de lenguaje favorito: <strong>Claude</strong>, <strong>ChatGPT</strong> o
+                    <strong>Gemini</strong>.</li>
+                  <li>Copia el prompt de abajo y pégalo en una conversación nueva.</li>
+                  <li>Reemplaza <strong>[lista]</strong> con tus tareas reales de hoy o de la semana.</li>
+                  <li>Lee la respuesta y quédate con el orden que te propone: empieza por ahí.</li>
+                </ol>
+
+                <div class="tool-row">
+                  <a class="tool-chip" href="https://claude.ai/" target="_blank" rel="noopener">🟣 Claude</a>
+                  <a class="tool-chip" href="https://chatgpt.com/" target="_blank" rel="noopener">🟢 ChatGPT</a>
+                  <a class="tool-chip" href="https://gemini.google.com/" target="_blank" rel="noopener">🔵 Gemini</a>
+                </div>
+
+                <div class="prompt-box">
+                  <span id="prompt1">Actúa como un asistente que me ayuda a organizar mi día.<br>Estas son mis tareas:
+                    <span class="ph">[lista]</span>.<br>Ayúdame a ordenarlas, priorizarlas y simplificarlas.</span>
+                  <button class="copy-btn" onclick="copyPrompt('prompt1', this)">Copiar prompt</button>
+                </div>
+
+                <p class="hint"><b>Tip:</b> entre más concreta sea tu lista (con tiempos, fechas o lugares), más útil va
+                  a ser la respuesta.</p>
+              </div>
+            </div>
+          </li>
+
+          <!-- Episodio 2 (placeholder) -->
+          <li class="episode-item disabled">
+            <button class="episode-toggle" disabled>
+              <span>
+                <span class="ep-num">Episodio 2</span>
+                <span class="ep-name">¿La IA piensa?</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="episode-body">
+              <div class="placeholder-text">La actividad se publica junto con el episodio. Próximamente ✦</div>
+            </div>
+          </li>
+
+          <!-- Episodio 3 (placeholder) -->
+          <li class="episode-item disabled">
+            <button class="episode-toggle" disabled>
+              <span>
+                <span class="ep-num">Episodio 3</span>
+                <span class="ep-name">Próximamente</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="episode-body">
+              <div class="placeholder-text">La actividad se publica junto con el episodio. Próximamente ✦</div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+      <!-- ========== fin Temporada 1 ========== -->
+
+      <!--
+      Para una Temporada 2, duplica todo el bloque <div class="season"> ... </div>
+      de arriba, cambia el título y agrega sus <li class="episode-item"> con
+      la misma estructura que el Episodio 1.
+    -->
+
+    </div>
+  </main>
+
+  <footer>
+    <span class="logo">✦ Sinerg.ia</span>
+    Un espacio para pensar la IA con calma, sin mitos y sin miedo.
+  </footer>
+
+  <script src="/js/script.js"></script>
+
+</body>
+
+</html>
