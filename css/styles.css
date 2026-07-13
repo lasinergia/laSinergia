@@ -180,9 +180,21 @@ body {
   background: #1DB954; color: white; padding: 10px 20px; border-radius: 100px;
   text-decoration: none; font-size: 13px; font-weight: 500; margin-bottom: 2rem;
   transition: opacity .2s;
+  margin-right: 10px;
 }
+
 .spotify-icon { width: 32px; height: 32px; fill: white; }
 .spotify-badge:hover { opacity: .88; }
+
+.youtube-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #FF0033; color: white; padding: 10px 20px; border-radius: 100px;
+  text-decoration: none; font-size: 13px; font-weight: 500; margin-bottom: 2rem;
+  transition: opacity .2s;
+}
+
+.youtube-icon { width: 32px; height: 32px; fill: white; }
+.youtube-badge:hover { opacity: .88; }
 
 .ep-list { border-top: .5px solid rgba(102,90,156,.1); }
 .ep-row {
