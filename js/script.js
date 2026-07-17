@@ -565,7 +565,7 @@ function descargarImagen() {
 }
 
 function abrirInstagram() {
-  // descargarImagen(); <-- Deshabilitado
+  descargarImagen();
   setTimeout(() => {
     window.open("https://www.instagram.com/lasinerg.ia/", "_blank");
   }, 800);
