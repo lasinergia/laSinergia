@@ -485,3 +485,75 @@ img {
   text-decoration: underline;
 }
 /* --- FIN MODAL EASTER EGG --- */
+
+/* Aseguramos que la fila principal no se rompa */
+.ep-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  /* (Tus otros estilos de padding y borders se mantienen iguales) */
+}
+
+/* Contenedor de las acciones (Botones) */
+.ep-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Diseño de los botones redondos */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05); /* Ajustá según si tu fondo es claro u oscuro */
+  border: 1px solid rgba(150, 150, 150, 0.2);
+  transition: all 0.2s ease;
+}
+
+.icon-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Colores de marca */
+.spotify-link { color: #1DB954; }
+.youtube-link { color: #FF0000; }
+
+/* Efecto hover general */
+.icon-link:hover {
+  transform: scale(1.05);
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+/* ------ EL TRUCO PARA EL EPISODIO 1 (Gris pero clickeable) ------ */
+.dimmed-actions .icon-link {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+/* Opcional: Al pasar el mouse por el gris, que recupere su color original */
+.dimmed-actions .icon-link:hover {
+  filter: grayscale(0%);
+  opacity: 1; 
+}
+
+/* Pantallas de Desktop: Si querés que los botones se vayan a la derecha del todo */
+@media (min-width: 768px) {
+  .ep-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .ep-actions {
+    margin-top: 0; 
+    margin-left: 1rem;
+    flex-shrink: 0; /* Evita que los botones se achiquen */
+  }
+}
