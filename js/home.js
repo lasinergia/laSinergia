@@ -80,3 +80,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// POP UP MODAL
+// Seleccionamos los elementos del DOM
+  const btnAbrirEp2 = document.getElementById('abrir-modal-ep2');
+  const modalEp2 = document.getElementById('modal-ep2');
+  const btnCerrarEp2 = document.getElementById('cerrar-modal-ep2');
+
+  // Evento para abrir el popup
+  if (btnAbrirEp2 && modalEp2) {
+    btnAbrirEp2.addEventListener('click', function(e) {
+      e.preventDefault(); // Evita que la página salte hacia arriba
+      modalEp2.style.display = 'flex'; // Cambialo a 'block' si tu CSS base de modal-overlay no usa flex
+    });
+  }
+
+  // Evento para cerrar el popup desde la 'X'
+  if (btnCerrarEp2 && modalEp2) {
+    btnCerrarEp2.addEventListener('click', function() {
+      modalEp2.style.display = 'none';
+    });
+  }
+
+  // Evento para cerrar el popup haciendo clic afuera de la caja
+  window.addEventListener('click', function(e) {
+    if (e.target === modalEp2) {
+      modalEp2.style.display = 'none';
+    }
+  });

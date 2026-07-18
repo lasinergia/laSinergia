@@ -196,7 +196,8 @@
         <span class="ep-arr">→</span>
       </a>
       <div class="ep-list">
-      <a href="https://open.spotify.com/episode/38Uk12dXip8n79DcUmM8Nn" class="ep-row clickable">
+      
+      <a href="#" id="abrir-modal-ep2" class="ep-row clickable">
         <span class="ep-num">T1·E2</span>
         <div class="ep-info">
           <div class="ep-t">¿la IA piensa? Inteligencia artificial vs. inteligencia humana</div>
@@ -323,6 +324,23 @@
       <div id="modal-commit-info">Cargando datos del sistema...</div>
     </div>
   </div>
+
+  <div id="modal-ep2" class="modal-overlay2" style="display: none;">
+  <div class="modal-content" style="text-align: center;">
+    <span class="close-modal" id="cerrar-modal-ep2">×</span>
+    <h3 style="margin-bottom: 10px;">¿Cómo querés explorar este episodio?</h3>
+    <p style="margin-bottom: 25px; color: var(--text-muted, #666);">Elegí si preferís ponerte a prueba o escuchar el debate completo.</p>
+    
+    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <a href="/quiz-2" class="btn-primary" style="border-radius: 0.75rem; text-decoration: none; color: white">
+        Hacer el Quiz
+      </a>
+      <a href="https://open.spotify.com/episode/38Uk12dXip8n79DcUmM8Nn" target="_blank" rel="noopener" class="btn-primary" style="background-color: #1DB954; color: white; border-radius: 0.75rem; text-decoration: none;">
+        Escuchar en Spotify
+      </a>
+    </div>
+  </div>
+</div>
   <script src="/js/home.js"></script>
   <script src="/js/viewCommit.js"></script>
 </body>

@@ -64,7 +64,7 @@ body {
 /* HERO */
 .hero {
   max-width: 1040px; margin: 0 auto;
-  padding: 5rem 2rem 4rem;
+  padding: 0rem 2rem 0rem;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 3rem; align-items: center; min-height: 88vh;
 }
@@ -426,3 +426,62 @@ img {
   -ms-user-select: none;
   user-select: none;
 }
+
+/* --- MODAL POP UP --- */
+.modal-overlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 11, 42, 0);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal-content {
+  background: var(--wh);
+  color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid var(--mu);
+  box-shadow: 0 0 25px var();
+  position: relative;
+  max-width: 420px;
+  width: 90%;
+  font-family: sans-serif;
+}
+
+.modal-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #9333ea, transparent);
+  margin: 1rem 0;
+}
+
+.close-modal {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #a78bfa;
+  transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+  color: #000000;
+}
+
+.modal-content a {
+  color: #c084fc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+/* --- FIN MODAL EASTER EGG --- */
