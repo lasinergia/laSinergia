@@ -594,6 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //        PAGINA DE ACTIVIDADES
 // ──────────────────────────────────────────────
 
+// Toggle Episode Func
 function toggleEpisode(btn){
   const item = btn.closest('.episode-item');
   if(item.classList.contains('disabled')) return;
@@ -602,6 +603,7 @@ function toggleEpisode(btn){
   if(!wasOpen) item.classList.add('open');
 }
 
+// Copy Prompt Func
 function copyPrompt(id, btn){
   const text = document.getElementById(id).innerText;
   navigator.clipboard.writeText(text).then(() => {
@@ -614,3 +616,57 @@ function copyPrompt(id, btn){
     }, 1800);
   });
 }
+
+// Lock Episode Func
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkEpisodeLocks();
+});
+
+function checkEpisodeLocks() {
+  const now = new Date();
+
+  document.querySelectorAll('.episode-item[data-release]').forEach((ep) => {
+    const releaseDateStr = ep.getAttribute('data-release');
+    if (!releaseDateStr) return;
+
+    // Convertir a objeto Date
+    const releaseDate = new Date(releaseDateStr);
+
+    // Validación: Comprobar si la fecha es inválida
+    if (isNaN(releaseDate.getTime())) {
+      console.error('Fecha inválida en el elemento:', releaseDateStr, ep);
+      return;
+    }
+
+    const dateTextSpan = ep.querySelector('.release-date-text');
+    const badge = ep.querySelector('.badge-status');
+
+    if (now >= releaseDate) {
+      // YA SE CUMPLIÓ O SOBREPASÓ LA FECHA -> Desbloquear
+      ep.classList.remove('locked');
+      
+      if (badge) {
+        badge.textContent = 'Disponible';
+        badge.style.backgroundColor = '#2e7d32'; // Verde
+        badge.style.color = '#ffffff';
+      }
+    } else {
+      // AÚN NO LLEGA LA FECHA -> Bloquear
+      ep.classList.add('locked');
+
+      if (dateTextSpan) {
+        const options = {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        };
+        dateTextSpan.textContent = releaseDate.toLocaleString(undefined, options);
+      }
+    }
+  });
+}
+
+// ...

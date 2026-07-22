@@ -233,3 +233,62 @@ footer .logo{display:block;margin-bottom:8px;font-size:1.4rem;}
     padding-top: 3.5rem; 
   }
 }
+
+/* Alineación interna del botón */
+.ep-header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 4px;
+}
+
+.ep-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Badge de estado */
+.badge-status {
+  font-size: 0.75rem;
+  background-color: #e53e3e;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* Subtítulo con fecha de estreno */
+.release-subtitle {
+  font-size: 0.85rem;
+  color: #2d2d2d;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Comportamiento cuando está DESBLOQUEADO */
+.episode-item:not(.locked) .release-subtitle {
+  display: none; /* Oculta el mensaje de fecha si ya está disponible */
+}
+
+/* Comportamiento cuando está BLOQUEADO (.locked) */
+.episode-item.locked .episode-body {
+  display: none !important; /* Desactiva/oculta el desplegable */
+}
+
+.episode-item.locked .episode-toggle {
+  cursor: not-allowed; /* Cambia el cursor si está bloqueado */
+  opacity: 0.85;
+}
+
+/* Si NO tiene .locked, oculta la leyenda de fecha */
+.episode-item:not(.locked) .release-subtitle {
+  display: none !important;
+}
+
+/* Si TIENE .locked, oculta el contenido interno */
+.episode-item.locked .episode-body {
+  display: none !important;
+}

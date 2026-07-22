@@ -111,43 +111,105 @@
           <li class="episode-item">
             <a href="/quiz/">
               <button class="episode-toggle">
-              <span>
-                <span class="ep-num">Episodio 2</span>
-                <span class="ep-name">¿la IA piensa? Inteligencia artificial vs. inteligencia humana</span>
-              </span>
-              <span class="chev">></span>
-            </button>
-            <div class="episode-body">
-              <div class="placeholder-text">La actividad se publica junto con el episodio. Próximamente ✦</div>
-            </div>
+                <span>
+                  <span class="ep-num">Episodio 2</span>
+                  <span class="ep-name">¿la IA piensa? Inteligencia artificial vs. inteligencia humana</span>
+                </span>
+                <span class="chev">></span>
+              </button>
+              <div class="episode-body">
+                <div class="placeholder-text">La actividad se publica junto con el episodio. Próximamente ✦</div>
+              </div>
             </a>
           </li>
 
           <!-- Episodio 3 (placeholder) -->
-          <li class="episode-item disabled">
-            <button class="episode-toggle" disabled>
-              <span>
-                <span class="ep-num">Episodio 3</span>
-                <span class="ep-name">Próximamente</span>
-              </span>
-              <span class="chev">⌄</span>
-            </button>
-            <div class="episode-body">
-              <div class="placeholder-text">La actividad se publica junto con el episodio. Próximamente ✦</div>
-            </div>
-          </li>
-
-        </ul>
+          <li class="episode-item" data-release="2026-07-2T10:00:00-03:00">
+  <button class="episode-toggle" onclick="toggleEpisode(this)">
+    <div class="ep-header-info">
+      <div class="ep-title-row">
+        <span class="ep-num">Episodio 3</span>
+        </div>
+        <div>
+        <span class="ep-name">Cuál es tu modelo? Los grandes modelos de lenguaje y cómo encontrar el tuyo</span>
       </div>
-      <!-- ========== fin Temporada 1 ========== -->
+      <div class="release-subtitle">
+      Se desbloquea el <span class="release-date-text">...</span>
+      </div>
+    </div>
+    <span class="chev">⌄</span>
+  </button>
 
-      <!--
-      Para una Temporada 2, duplica todo el bloque <div class="season"> ... </div>
-      de arriba, cambia el título y agrega sus <li class="episode-item"> con
-      la misma estructura que el Episodio 1.
+  <div class="episode-body">
+    <div class="episode-inner">
+      <span class="activity-label">Actividad práctica</span>
+
+      <ol class="step-list">
+        <li>Abre tu modelo de lenguaje favorito:
+          <strong>ChatGPT</strong>,
+          <strong>Gemini</strong>,
+          <strong>Gemini Notebook</strong>,
+          <strong>Claude</strong> o
+          <strong>Grok</strong>
+        </li>
+        <li>Copia el prompt de abajo y pégalo en una conversación nueva.</li>
+        <li>Reemplaza <strong>[escribe aquí tu profesión u oficio]</strong> con tu profesión u oficio.</li>
+        <li>Lee la respuesta y quédate con el orden que te propone: empieza por ahí.</li>
+      </ol>
+
+      <div class="tool-row">
+        <a class="tool-chip" href="https://chatgpt.com" target="_blank" rel="noopener">
+          <span><img src="/assets/icons/chatgpt.png" alt="ChatGPT-icon"></span> ChatGPT
+        </a>
+        <a class="tool-chip" href="https://gemini.google.com" target="_blank" rel="noopener">
+          <span><img src="/assets/icons/gemini.png" alt="Gemini-icon"></span> Gemini
+        </a>
+        <a class="tool-chip" href="https://notebooklm.google/?hl=es" target="_blank" rel="noopener">
+          <span><img src="/assets/icons/geminiNotebook.png" alt="GeminiNotebook-icon"></span> Gemini Notebook
+        </a>
+        <a class="tool-chip" href="https://claude.ai" target="_blank" rel="noopener">
+          <span><img src="/assets/icons/claude.png" alt="Claude-icon"></span> Claude
+        </a>
+        <a class="tool-chip" href="https://grok.com" target="_blank" rel="noopener">
+          <span><img src="/assets/icons/grok.webp" alt="Grok-icon"></span> Grok
+        </a>
+      </div>
+
+      <div class="prompt-box">
+        <span id="prompt2">Me dedico a
+          <span class="ph">[escribe aquí tu profesión u oficio]</span>.
+          <p>Quiero entender cómo funcionas y cómo puedo utilizarte de manera responsable, especialmente en situaciones relacionadas con mi trabajo.</p>
+
+          <p>Respóndeme con palabras simples, párrafos cortos y ejemplos cotidianos aplicados, cuando sea posible, a mi profesión. Evita los tecnicismos y desarrolla un máximo de tres ideas por cada pregunta.</p>
+
+          <ol>
+            <div>
+              <li><p>¿Qué eres exactamente y qué no eres?</p></li>
+              <li><p>¿Cuáles son tus principales limitaciones y por qué puedes equivocarte, confundir información o inventar datos?</p></li>
+              <li><p>¿Qué aspectos importantes debería revisar en los términos de uso y en la política de privacidad de esta herramienta antes de utilizarla en mi trabajo?</p></li>
+            </div>
+          </ol>
+          <p>
+            Organiza toda la respuesta de forma clara y fácil de entender.<br><br>
+            Al final, resume lo más importante en cinco ideas clave que cualquier persona debería recordar antes de utilizar una inteligencia artificial.
+          </p>
+        </span>
+        <button class="copy-btn" onclick="copyPrompt('prompt2', this)">Copiar prompt</button>
+      </div>
+
+      <p class="hint"><b>Tip:</b> prueba el mismo prompt en varias IA y descubre cuál se adapta mejor a tus necesidades.</p>
+    </div>
+  </div>
+</li>
+          <!-- ========== fin Temporada 1 ========== -->
+
+          <!--
+      Para una Temporada 2, se duplica todo el bloque <div class="season"> ... </div>
+      de arriba, se cambia el título y se agrega sus <li class="episode-item"> con
+      la misma estructura que el Episodio 1 :D
     -->
 
-    </div>
+      </div>
   </main>
 
   <footer>
