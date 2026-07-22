@@ -659,11 +659,11 @@ function checkEpisodeLocks() {
         const options = {
           day: '2-digit',
           month: '2-digit',
-          year: 'numeric',
+          year: '2-digit',
           hour: '2-digit',
           minute: '2-digit'
         };
-        dateTextSpan.textContent = releaseDate.toLocaleString(undefined, options);
+        dateTextSpan.textContent = releaseDate.toLocaleDateString('es-ES', options);
       }
     }
   });
