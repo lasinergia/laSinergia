@@ -647,12 +647,12 @@ function checkEpisodeLocks() {
       ep.classList.remove('locked');
       
       if (badge) {
-        badge.textContent = 'Disponible';
-        badge.style.backgroundColor = '#2e7d32'; // Verde
-        badge.style.color = '#ffffff';
+        badge.textContent = '⌄';
+        badge.style.color = '#2d2d2d';
       }
     } else {
       // AÚN NO LLEGA LA FECHA -> Bloquear
+      badge.textContent = '🔒';
       ep.classList.add('locked');
 
       if (dateTextSpan) {
