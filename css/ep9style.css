@@ -1,0 +1,307 @@
+    #sinergia-dieta-digital {
+      --sdd-cream:#FBF5EF; --sdd-purple:#665A9C; --sdd-lilac:#928AC2;
+      --sdd-pink:#F7C4E9; --sdd-blush:#FBDAD2; --sdd-dark:#2D2D2D;
+      --sdd-white:#FFFFFF;
+      box-sizing: border-box;
+      max-width: 640px;
+      margin: 2rem auto;
+      background: var(--sdd-cream);
+      border-radius: 28px;
+      padding: 1.75rem 1.25rem 2.25rem;
+      font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--sdd-dark);
+      box-shadow: 0 10px 40px rgba(102,90,156,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    #sinergia-dieta-digital *, #sinergia-dieta-digital *::before, #sinergia-dieta-digital *::after {
+      box-sizing: border-box;
+    }
+    #sinergia-dieta-digital .sdd-serif {
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    }
+    #sinergia-dieta-digital .sdd-script {
+      font-family: 'Dancing Script', cursive;
+    }
+    #sinergia-dieta-digital .sdd-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sdd-purple);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    #sinergia-dieta-digital h1.sdd-title {
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      line-height: 1.15;
+      margin: 0 0 0.85rem;
+      color: var(--sdd-dark);
+    }
+    #sinergia-dieta-digital .sdd-accent { color: var(--sdd-purple); }
+    #sinergia-dieta-digital p.sdd-body {
+      font-size: 1rem;
+      line-height: 1.55;
+      margin: 0 0 1rem;
+      color: #4a4a4a;
+    }
+    #sinergia-dieta-digital .sdd-small {
+      font-size: 0.85rem;
+      color: #6a6a6a;
+      margin: 0 0 0.9rem;
+    }
+
+    /* progreso */
+    #sinergia-dieta-digital .sdd-progress-wrap {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    #sinergia-dieta-digital .sdd-progress-wrap.sdd-show { display: flex; }
+    #sinergia-dieta-digital .sdd-progress-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--sdd-purple);
+      white-space: nowrap;
+    }
+    #sinergia-dieta-digital .sdd-progress-track {
+      flex: 1;
+      height: 7px;
+      background: var(--sdd-blush);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    #sinergia-dieta-digital .sdd-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--sdd-purple), var(--sdd-lilac));
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.35s ease;
+    }
+
+    /* pantallas */
+    #sinergia-dieta-digital .sdd-screen { display: none; }
+    #sinergia-dieta-digital .sdd-screen.sdd-active {
+      display: block;
+      animation: sdd-fade 0.35s ease;
+    }
+    @keyframes sdd-fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* contador de selección */
+    #sinergia-dieta-digital .sdd-counter {
+      display: inline-block;
+      background: var(--sdd-white);
+      border: 1px solid var(--sdd-lilac);
+      color: var(--sdd-purple);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    /* grid de opciones */
+    #sinergia-dieta-digital .sdd-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+    #sinergia-dieta-digital .sdd-options.sdd-single-col {
+      grid-template-columns: 1fr;
+    }
+    #sinergia-dieta-digital button.sdd-option {
+      font-family: inherit;
+      font-size: 0.92rem;
+      text-align: left;
+      background: var(--sdd-white);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 0.8rem 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      line-height: 1.3;
+      color: var(--sdd-dark);
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      position: relative;
+    }
+    #sinergia-dieta-digital button.sdd-option:hover { transform: translateY(-2px); }
+    #sinergia-dieta-digital button.sdd-option:focus-visible {
+      outline: 3px solid var(--sdd-purple);
+      outline-offset: 2px;
+    }
+    #sinergia-dieta-digital button.sdd-option .sdd-emoji {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    #sinergia-dieta-digital button.sdd-option[aria-pressed="true"] {
+      background: var(--sdd-pink);
+      border-color: var(--sdd-purple);
+      font-weight: 700;
+    }
+    #sinergia-dieta-digital button.sdd-option[aria-pressed="true"]::after {
+      content: "✓";
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-size: 0.85rem;
+      color: var(--sdd-purple);
+      font-weight: 900;
+    }
+    #sinergia-dieta-digital button.sdd-option:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* botones principales */
+    #sinergia-dieta-digital .sdd-btn-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    #sinergia-dieta-digital button.sdd-btn-primary {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: var(--sdd-dark);
+      color: var(--sdd-cream);
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.6rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+    #sinergia-dieta-digital button.sdd-btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: var(--sdd-purple);
+    }
+    #sinergia-dieta-digital button.sdd-btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+    }
+    #sinergia-dieta-digital button.sdd-btn-text {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.88rem;
+      background: none;
+      border: none;
+      color: var(--sdd-purple);
+      cursor: pointer;
+      padding: 0.6rem 0.3rem;
+      text-decoration: underline;
+    }
+    #sinergia-dieta-digital button.sdd-btn-text:focus-visible,
+    #sinergia-dieta-digital button.sdd-btn-primary:focus-visible {
+      outline: 3px solid var(--sdd-purple);
+      outline-offset: 2px;
+    }
+
+    /* resultado */
+    #sinergia-dieta-digital .sdd-result-card {
+      background: var(--sdd-white);
+      border-radius: 20px;
+      padding: 1.2rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-result-card h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.05rem;
+      color: var(--sdd-purple);
+    }
+    #sinergia-dieta-digital .sdd-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    #sinergia-dieta-digital .sdd-tag-list li {
+      background: var(--sdd-blush);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    #sinergia-dieta-digital .sdd-tag-list.sdd-menos li { background: var(--sdd-lilac); color: var(--sdd-white); }
+    #sinergia-dieta-digital .sdd-day-card {
+      background: var(--sdd-white);
+      border-left: 5px solid var(--sdd-purple);
+      border-radius: 14px;
+      padding: 1.1rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+    #sinergia-dieta-digital .sdd-day-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+    #sinergia-dieta-digital .sdd-day-card p { margin: 0 0 0.5rem; font-size: 0.95rem; line-height: 1.55; }
+    #sinergia-dieta-digital .sdd-day-card ul { margin: 0.3rem 0 0.5rem 1.1rem; padding: 0; font-size: 0.95rem; line-height: 1.6; }
+    #sinergia-dieta-digital .sdd-challenge {
+      background: var(--sdd-pink);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    #sinergia-dieta-digital .sdd-challenge strong { display: block; margin-bottom: 0.35rem; font-size: 1rem; }
+    #sinergia-dieta-digital .sdd-compare {
+      background: var(--sdd-white);
+      border-radius: 16px;
+      padding: 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-compare h3 { margin: 0 0 0.6rem; font-size: 1.05rem; }
+    #sinergia-dieta-digital .sdd-compare .sdd-vs-row { display: flex; gap: 0.6rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+    #sinergia-dieta-digital .sdd-compare .sdd-vs-day {
+      flex: 1;
+      min-width: 130px;
+      background: var(--sdd-cream);
+      border-radius: 12px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.88rem;
+    }
+    #sinergia-dieta-digital .sdd-compare .sdd-vs-day b { display: block; color: var(--sdd-purple); margin-bottom: 0.2rem; }
+    #sinergia-dieta-digital .sdd-compare ul { margin: 0.4rem 0 0 1.1rem; padding: 0; font-size: 0.9rem; line-height: 1.6; color: #4a4a4a; }
+    #sinergia-dieta-digital .sdd-final-phrase {
+      text-align: center;
+      padding: 1.4rem 1rem;
+      background: var(--sdd-dark);
+      color: var(--sdd-cream);
+      border-radius: 18px;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-final-phrase p.sdd-serif {
+      font-size: 1.15rem;
+      line-height: 1.4;
+      margin: 0 0 0.6rem;
+    }
+    #sinergia-dieta-digital .sdd-final-phrase .sdd-script {
+      font-size: 1.3rem;
+      color: var(--sdd-pink);
+    }
+
+    /* mobile */
+    @media (max-width: 420px) {
+      #sinergia-dieta-digital .sdd-options { grid-template-columns: 1fr; }
+      #sinergia-dieta-digital { padding: 1.4rem 1rem 1.8rem; border-radius: 20px; }
+      #sinergia-dieta-digital button.sdd-btn-primary { width: 100%; text-align: center; }
+    }
+
+    /* accesibilidad: respeta reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      #sinergia-dieta-digital *, #sinergia-dieta-digital *::before, #sinergia-dieta-digital *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
