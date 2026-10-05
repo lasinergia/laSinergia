@@ -1,3 +1,4 @@
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap');
     #sinergia-dieta-digital {
       --sdd-cream:#FBF5EF; --sdd-purple:#665A9C; --sdd-lilac:#928AC2;
       --sdd-pink:#F7C4E9; --sdd-blush:#FBDAD2; --sdd-dark:#2D2D2D;
@@ -8,7 +9,7 @@
       background: var(--sdd-cream);
       border-radius: 28px;
       padding: 1.75rem 1.25rem 2.25rem;
-      font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--sdd-dark);
       box-shadow: 0 10px 40px rgba(102,90,156,0.12);
       position: relative;
@@ -203,6 +204,72 @@
     #sinergia-dieta-digital button.sdd-btn-primary:focus-visible {
       outline: 3px solid var(--sdd-purple);
       outline-offset: 2px;
+    }
+
+    /* formulario inicial */
+    #sinergia-dieta-digital .sdd-form { margin: 1.25rem 0 1.5rem; display: grid; gap: 0.95rem; }
+    #sinergia-dieta-digital .sdd-field label {
+      display: block; font-size: 0.85rem; font-weight: 700; color: var(--sdd-purple); margin: 0 0 0.3rem;
+    }
+    #sinergia-dieta-digital .sdd-field input[type="text"],
+    #sinergia-dieta-digital .sdd-field input[type="email"],
+    #sinergia-dieta-digital .sdd-field select {
+      display: block; width: 100%; min-height: 48px; margin: 0;
+      font-family: inherit; font-size: 1rem; line-height: 1.3; color: var(--sdd-dark);
+      padding: 0.75rem 0.9rem; background: var(--sdd-white);
+      border: 2px solid var(--sdd-lilac); border-radius: 14px; box-shadow: none;
+    }
+    #sinergia-dieta-digital .sdd-field input:focus-visible,
+    #sinergia-dieta-digital .sdd-field select:focus-visible,
+    #sinergia-dieta-digital .sdd-consent input:focus-visible {
+      outline: 3px solid var(--sdd-purple); outline-offset: 2px; border-color: var(--sdd-purple);
+    }
+    #sinergia-dieta-digital .sdd-field input[aria-invalid="true"],
+    #sinergia-dieta-digital .sdd-field select[aria-invalid="true"] { border-color: #B3261E; }
+    #sinergia-dieta-digital .sdd-error {
+      margin: 0.35rem 0 0; font-size: 0.82rem; font-weight: 700; color: #B3261E; line-height: 1.35;
+    }
+    #sinergia-dieta-digital .sdd-error:empty { display: none; }
+    #sinergia-dieta-digital .sdd-error:not(:empty)::before { content: "⚠ "; }
+    #sinergia-dieta-digital .sdd-consent {
+      display: flex; gap: 0.65rem; align-items: flex-start;
+      font-size: 0.85rem; line-height: 1.45; color: #4a4a4a;
+    }
+    #sinergia-dieta-digital .sdd-consent input[type="checkbox"] {
+      flex-shrink: 0; width: 22px; height: 22px; margin: 0.1rem 0 0; accent-color: var(--sdd-purple);
+    }
+    #sinergia-dieta-digital .sdd-consent label { margin: 0; font-weight: 400; color: inherit; cursor: pointer; }
+    #sinergia-dieta-digital .sdd-consent a { color: var(--sdd-purple); text-decoration: underline; }
+    #sinergia-dieta-digital .sdd-hp {
+      position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+    }
+    #sinergia-dieta-digital .sdd-for {
+      font-family: 'Dancing Script', 'Brush Script MT', cursive;
+      font-size: 1.7rem; line-height: 1.2; color: var(--sdd-purple); margin: 0 0 0.7rem;
+    }
+    #sinergia-dieta-digital .sdd-for:empty { display: none; }
+
+    /* descarga JPG */
+    #sinergia-dieta-digital button.sdd-btn-primary.sdd-btn-accent { background: var(--sdd-purple); }
+    #sinergia-dieta-digital button.sdd-btn-primary.sdd-btn-accent:hover:not(:disabled) { background: var(--sdd-dark); }
+    #sinergia-dieta-digital .sdd-download-card {
+      background: var(--sdd-white);
+      border: 2px dashed var(--sdd-lilac);
+      border-radius: 20px;
+      padding: 1.2rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-download-card h3 { margin: 0 0 0.4rem; font-size: 1.1rem; color: var(--sdd-dark); }
+    #sinergia-dieta-digital .sdd-download-card .sdd-small { margin: 0 0 0.9rem; }
+    #sinergia-dieta-digital .sdd-download-card .sdd-small#sdd-download-status { margin: 0.7rem 0 0; color: var(--sdd-purple); font-weight: 600; }
+    #sinergia-dieta-digital .sdd-download-card .sdd-small#sdd-download-status:empty { display: none; }
+    #sinergia-dieta-digital img.sdd-preview {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      margin-top: 0.9rem;
+      box-shadow: 0 6px 24px rgba(102,90,156,0.18);
     }
 
     /* resultado */

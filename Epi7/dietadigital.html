@@ -1,0 +1,208 @@
+<div id="sinergia-dieta-digital">
+
+  <!-- ================= BARRA DE PROGRESO ================= -->
+  <div class="sdd-progress-wrap" id="sdd-progress-wrap">
+    <span class="sdd-progress-label" id="sdd-progress-label">Pregunta 1 de 5</span>
+    <div class="sdd-progress-track"><div class="sdd-progress-fill" id="sdd-progress-fill"></div></div>
+  </div>
+
+  <!-- ================= PANTALLA INICIAL ================= -->
+  <section class="sdd-screen sdd-active" id="sdd-screen-intro">
+    <span class="sdd-eyebrow">Episodio 9 · Actividad SINERG.ia</span>
+    <h1 class="sdd-title sdd-serif">Diseña tu dieta digital <span class="sdd-accent">✦</span></h1>
+    <p class="sdd-body">Tu feed también se alimenta.<br><br>
+      Elige qué quieres ver más, qué quieres reducir y recibe un plan personalizado de 3 días para darle mejores señales a tu algoritmo.</p>
+    <div class="sdd-form" id="sdd-form">
+      <div class="sdd-field">
+        <label for="sdd-name">Nombre</label>
+        <input type="text" id="sdd-name" autocomplete="name" maxlength="60" aria-describedby="sdd-name-err">
+        <p class="sdd-error" id="sdd-name-err" aria-live="polite"></p>
+      </div>
+      <div class="sdd-field">
+        <label for="sdd-country">País</label>
+        <select id="sdd-country" autocomplete="country-name" aria-describedby="sdd-country-err">
+          <option value="">Selecciona tu país</option>
+          <option>Argentina</option>
+          <option>Bolivia</option>
+          <option>Brasil</option>
+          <option>Chile</option>
+          <option>Colombia</option>
+          <option>Costa Rica</option>
+          <option>Cuba</option>
+          <option>Ecuador</option>
+          <option>El Salvador</option>
+          <option>España</option>
+          <option>Estados Unidos</option>
+          <option>Guatemala</option>
+          <option>Honduras</option>
+          <option>México</option>
+          <option>Nicaragua</option>
+          <option>Panamá</option>
+          <option>Paraguay</option>
+          <option>Perú</option>
+          <option>Puerto Rico</option>
+          <option>República Dominicana</option>
+          <option>Uruguay</option>
+          <option>Venezuela</option>
+          <option>Otro país</option>
+        </select>
+        <p class="sdd-error" id="sdd-country-err" aria-live="polite"></p>
+      </div>
+      <div class="sdd-field">
+        <label for="sdd-email">Correo electrónico</label>
+        <input type="email" id="sdd-email" autocomplete="email" inputmode="email" maxlength="120" aria-describedby="sdd-email-err">
+        <p class="sdd-error" id="sdd-email-err" aria-live="polite"></p>
+      </div>
+      <div class="sdd-hp" aria-hidden="true">
+        <label for="sdd-website">Dejar este campo vacío</label>
+        <input type="text" id="sdd-website" tabindex="-1" autocomplete="off">
+      </div>
+      <div>
+        <div class="sdd-consent">
+          <input type="checkbox" id="sdd-consent" aria-describedby="sdd-consent-err">
+          <label for="sdd-consent">Acepto que SINERG.ia guarde mi nombre, país y correo para contactarme sobre esta y otras actividades.<span id="sdd-privacy-slot"></span></label>
+        </div>
+        <p class="sdd-error" id="sdd-consent-err" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-primary" id="sdd-start-btn">Crear mi dieta digital</button>
+    </div>
+  </section>
+
+  <!-- ================= PREGUNTA 1 — MÁS ================= -->
+  <section class="sdd-screen" id="sdd-screen-q1" aria-labelledby="sdd-q1-title">
+    <h2 class="sdd-title sdd-serif" id="sdd-q1-title" style="font-size:1.4rem;">¿Qué quieres ver <span class="sdd-accent">MÁS</span> en tu feed?</h2>
+    <p class="sdd-small">Elige exactamente 3.</p>
+    <span class="sdd-counter" id="sdd-q1-counter">0/3</span>
+    <div class="sdd-options" id="sdd-q1-options" role="group" aria-label="Opciones: qué quieres ver más"></div>
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-text" data-back="sdd-screen-intro">Atrás</button>
+      <button type="button" class="sdd-btn-primary" id="sdd-q1-next" disabled>Siguiente</button>
+    </div>
+  </section>
+
+  <!-- ================= PREGUNTA 2 — MENOS ================= -->
+  <section class="sdd-screen" id="sdd-screen-q2" aria-labelledby="sdd-q2-title">
+    <h2 class="sdd-title sdd-serif" id="sdd-q2-title" style="font-size:1.4rem;">¿Qué quieres ver <span class="sdd-accent">MENOS</span>?</h2>
+    <p class="sdd-small">Elige exactamente 3 cosas que hoy ocupan más espacio del que quisieras.</p>
+    <span class="sdd-counter" id="sdd-q2-counter">0/3</span>
+    <div class="sdd-options" id="sdd-q2-options" role="group" aria-label="Opciones: qué quieres ver menos"></div>
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-text" data-back="sdd-screen-q1">Atrás</button>
+      <button type="button" class="sdd-btn-primary" id="sdd-q2-next" disabled>Siguiente</button>
+    </div>
+  </section>
+
+  <!-- ================= PREGUNTA 3 ================= -->
+  <section class="sdd-screen" id="sdd-screen-q3" aria-labelledby="sdd-q3-title">
+    <h2 class="sdd-title sdd-serif" id="sdd-q3-title" style="font-size:1.3rem;">Cuando aparece algo que NO quieres seguir viendo… ¿qué haces normalmente?</h2>
+    <div class="sdd-options sdd-single-col" id="sdd-q3-options" role="group" aria-label="Opciones pregunta 3"></div>
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-text" data-back="sdd-screen-q2">Atrás</button>
+      <button type="button" class="sdd-btn-primary" id="sdd-q3-next" disabled>Siguiente</button>
+    </div>
+  </section>
+
+  <!-- ================= PREGUNTA 4 ================= -->
+  <section class="sdd-screen" id="sdd-screen-q4" aria-labelledby="sdd-q4-title">
+    <h2 class="sdd-title sdd-serif" id="sdd-q4-title" style="font-size:1.3rem;">¿Qué quieres que te deje tu feed?</h2>
+    <div class="sdd-options sdd-single-col" id="sdd-q4-options" role="group" aria-label="Opciones pregunta 4"></div>
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-text" data-back="sdd-screen-q3">Atrás</button>
+      <button type="button" class="sdd-btn-primary" id="sdd-q4-next" disabled>Siguiente</button>
+    </div>
+  </section>
+
+  <!-- ================= PREGUNTA 5 ================= -->
+  <section class="sdd-screen" id="sdd-screen-q5" aria-labelledby="sdd-q5-title">
+    <h2 class="sdd-title sdd-serif" id="sdd-q5-title" style="font-size:1.3rem;">¿Dónde quieres hacer el experimento?</h2>
+    <div class="sdd-options sdd-single-col" id="sdd-q5-options" role="group" aria-label="Opciones pregunta 5"></div>
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-text" data-back="sdd-screen-q4">Atrás</button>
+      <button type="button" class="sdd-btn-primary" id="sdd-q5-next" disabled>Ver mi dieta digital</button>
+    </div>
+  </section>
+
+  <!-- ================= RESULTADO ================= -->
+  <section class="sdd-screen" id="sdd-screen-result" aria-labelledby="sdd-result-title">
+    <span class="sdd-eyebrow">Tu resultado</span>
+    <h1 class="sdd-title sdd-serif" id="sdd-result-title">Tu dieta digital <span class="sdd-accent">✦</span></h1>
+    <p class="sdd-for" id="sdd-result-for"></p>
+    <p class="sdd-body" id="sdd-result-objetivo" style="font-weight:700;"></p>
+
+    <div class="sdd-result-card">
+      <h3>Quiero más</h3>
+      <ul class="sdd-tag-list sdd-mas" id="sdd-tags-mas"></ul>
+    </div>
+    <div class="sdd-result-card">
+      <h3>Quiero menos</h3>
+      <ul class="sdd-tag-list sdd-menos" id="sdd-tags-menos"></ul>
+    </div>
+    <div class="sdd-result-card">
+      <h3>Plataforma del experimento</h3>
+      <p class="sdd-body" id="sdd-tag-plataforma" style="margin:0;"></p>
+    </div>
+
+    <h2 class="sdd-title sdd-serif" style="font-size:1.3rem;">Tu plan personalizado de 3 días</h2>
+
+    <div class="sdd-day-card">
+      <h3>Día 1 — Limpia 🔎</h3>
+      <p id="sdd-day1-text"></p>
+    </div>
+    <div class="sdd-day-card">
+      <h3>Día 2 — Alimenta 🌱</h3>
+      <p id="sdd-day2-intro"></p>
+      <ul>
+        <li>Busca directamente uno de esos temas.</li>
+        <li>Sigue una cuenta que realmente te aporte.</li>
+        <li>Guarda una publicación útil.</li>
+        <li>Mira completo contenido que genuinamente te interese.</li>
+        <li>Comparte algo porque realmente te sirvió.</li>
+      </ul>
+      <p>La idea no es engañar al algoritmo. Es darle señales más conscientes sobre lo que sí quieres encontrar.</p>
+    </div>
+    <div class="sdd-day-card">
+      <h3>Día 3 — Compara ✦</h3>
+      <p id="sdd-day3-text"></p>
+      <p>¿Apareció más contenido relacionado con lo que elegiste? ¿Apareció menos de algún tema que querías reducir? ¿Tu feed se siente más útil, interesante o simplemente diferente?</p>
+      <p>No buscamos demostrar que todo cambió mágicamente en tres días. Buscamos que empieces a notar algo mucho más importante: tu comportamiento también participa en lo que terminas viendo.</p>
+    </div>
+
+    <div class="sdd-challenge" id="sdd-challenge-box"></div>
+
+    <div class="sdd-compare">
+      <h3>Antes vs. después</h3>
+      <div class="sdd-vs-row">
+        <div class="sdd-vs-day"><b>Día 1</b>Observa tus primeros 10 contenidos.</div>
+        <div class="sdd-vs-day"><b>Día 3</b>Vuelve a mirar tus primeros 10 contenidos.</div>
+      </div>
+      <ul>
+        <li>¿Qué apareció más?</li>
+        <li>¿Qué apareció menos?</li>
+        <li>¿Qué te sorprendió?</li>
+      </ul>
+    </div>
+
+    <div class="sdd-final-phrase">
+      <p class="sdd-serif">Tu algoritmo aprende de lo que consumes.<br>Alimenta también aquello que quieres que crezca.</p>
+      <span class="sdd-script">✦ La IA no nos reemplaza. Nos potencia.</span>
+    </div>
+
+    <div class="sdd-download-card">
+      <h3 class="sdd-serif">Guarda tu dieta digital ✦</h3>
+      <p class="sdd-small">Descarga tu plan personalizado como imagen (JPG) para tenerlo a la mano durante tus 3 días.</p>
+      <button type="button" class="sdd-btn-primary sdd-btn-accent" id="sdd-download-btn">Descargar mi dieta digital (JPG)</button>
+      <p class="sdd-small" id="sdd-download-status" role="status" aria-live="polite"></p>
+      <div id="sdd-preview-wrap" style="display:none;">
+        <img class="sdd-preview" id="sdd-preview" alt="Vista previa de tu dieta digital en imagen">
+      </div>
+    </div>
+
+    <div class="sdd-btn-row">
+      <button type="button" class="sdd-btn-primary" id="sdd-restart-btn">Volver a hacer la actividad</button>
+      <a href="https://lasinergia.com.co/actividades/" class="sdd-btn-text" id="sdd-more-link">Ver más actividades</a>
+    </div>
+  </section>
+
+</div>

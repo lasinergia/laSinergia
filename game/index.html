@@ -747,6 +747,62 @@
                     <p class="sdd-body">Tu feed también se alimenta.<br><br>
                       Elige qué quieres ver más, qué quieres reducir y recibe un plan personalizado de 3 días para darle
                       mejores señales a tu algoritmo.</p>
+                    <div class="sdd-form" id="sdd-form">
+                      <div class="sdd-field">
+                        <label for="sdd-name">Nombre</label>
+                        <input type="text" id="sdd-name" autocomplete="name" maxlength="60"
+                          aria-describedby="sdd-name-err">
+                        <p class="sdd-error" id="sdd-name-err" aria-live="polite"></p>
+                      </div>
+                      <div class="sdd-field">
+                        <label for="sdd-country">País</label>
+                        <select id="sdd-country" autocomplete="country-name" aria-describedby="sdd-country-err">
+                          <option value="">Selecciona tu país</option>
+                          <option>Argentina</option>
+                          <option>Bolivia</option>
+                          <option>Brasil</option>
+                          <option>Chile</option>
+                          <option>Colombia</option>
+                          <option>Costa Rica</option>
+                          <option>Cuba</option>
+                          <option>Ecuador</option>
+                          <option>El Salvador</option>
+                          <option>España</option>
+                          <option>Estados Unidos</option>
+                          <option>Guatemala</option>
+                          <option>Honduras</option>
+                          <option>México</option>
+                          <option>Nicaragua</option>
+                          <option>Panamá</option>
+                          <option>Paraguay</option>
+                          <option>Perú</option>
+                          <option>Puerto Rico</option>
+                          <option>República Dominicana</option>
+                          <option>Uruguay</option>
+                          <option>Venezuela</option>
+                          <option>Otro país</option>
+                        </select>
+                        <p class="sdd-error" id="sdd-country-err" aria-live="polite"></p>
+                      </div>
+                      <div class="sdd-field">
+                        <label for="sdd-email">Correo electrónico</label>
+                        <input type="email" id="sdd-email" autocomplete="email" inputmode="email" maxlength="120"
+                          aria-describedby="sdd-email-err">
+                        <p class="sdd-error" id="sdd-email-err" aria-live="polite"></p>
+                      </div>
+                      <div class="sdd-hp" aria-hidden="true">
+                        <label for="sdd-website">Dejar este campo vacío</label>
+                        <input type="text" id="sdd-website" tabindex="-1" autocomplete="off">
+                      </div>
+                      <div>
+                        <div class="sdd-consent">
+                          <input type="checkbox" id="sdd-consent" aria-describedby="sdd-consent-err">
+                          <label for="sdd-consent">Acepto que SINERG.ia guarde mi nombre, país y correo para contactarme
+                            sobre esta y otras actividades.<span id="sdd-privacy-slot"></span></label>
+                        </div>
+                        <p class="sdd-error" id="sdd-consent-err" aria-live="polite"></p>
+                      </div>
+                    </div>
                     <div class="sdd-btn-row">
                       <button type="button" class="sdd-btn-primary" id="sdd-start-btn">Crear mi dieta digital</button>
                     </div>
@@ -822,6 +878,7 @@
                     <span class="sdd-eyebrow">Tu resultado</span>
                     <h1 class="sdd-title sdd-serif" id="sdd-result-title">Tu dieta digital <span
                         class="sdd-accent">✦</span></h1>
+                    <p class="sdd-for" id="sdd-result-for"></p>
                     <p class="sdd-body" id="sdd-result-objetivo" style="font-weight:700;"></p>
 
                     <div class="sdd-result-card">
@@ -886,6 +943,18 @@
                       <span class="sdd-script">✦ La IA no nos reemplaza. Nos potencia.</span>
                     </div>
 
+                    <div class="sdd-download-card">
+                      <h3 class="sdd-serif">Guarda tu dieta digital ✦</h3>
+                      <p class="sdd-small">Descarga tu plan personalizado como imagen (JPG) para tenerlo a la mano
+                        durante tus 3 días.</p>
+                      <button type="button" class="sdd-btn-primary sdd-btn-accent" id="sdd-download-btn">Descargar mi
+                        dieta digital (JPG)</button>
+                      <p class="sdd-small" id="sdd-download-status" role="status" aria-live="polite"></p>
+                      <div id="sdd-preview-wrap" style="display:none;">
+                        <img class="sdd-preview" id="sdd-preview" alt="Vista previa de tu dieta digital en imagen">
+                      </div>
+                    </div>
+
                     <div class="sdd-btn-row">
                       <button type="button" class="sdd-btn-primary" id="sdd-restart-btn">Volver a hacer la
                         actividad</button>
@@ -895,6 +964,7 @@
                   </section>
 
                 </div>
+
               </div>
           </li>
           <!-- ========== fin Temporada 1 ========== -->
