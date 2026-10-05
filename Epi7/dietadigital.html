@@ -1,4 +1,345 @@
+<!-- ============================================================
+  SINERG.ia · Actividad "Diseña tu dieta digital ✦"
+  Episodio 9 — Bloque embebible autocontenido (HTML + CSS + JS)
+  Pegar completo dentro de un bloque HTML personalizado.
+  No usa localStorage, APIs externas, frameworks ni backend.
+============================================================= -->
 <div id="sinergia-dieta-digital">
+
+  <style>
+    /* Tipografías de marca (opcional): borra la línea @import si prefieres no hacer ninguna petición externa; el diseño usa fuentes de reserva. */
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap');
+    #sinergia-dieta-digital {
+      --sdd-cream:#FBF5EF; --sdd-purple:#665A9C; --sdd-lilac:#928AC2;
+      --sdd-pink:#F7C4E9; --sdd-blush:#FBDAD2; --sdd-dark:#2D2D2D;
+      --sdd-white:#FFFFFF;
+      box-sizing: border-box;
+      max-width: 640px;
+      margin: 2rem auto;
+      background: var(--sdd-cream);
+      border-radius: 28px;
+      padding: 1.75rem 1.25rem 2.25rem;
+      font-family: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--sdd-dark);
+      box-shadow: 0 10px 40px rgba(102,90,156,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    #sinergia-dieta-digital *, #sinergia-dieta-digital *::before, #sinergia-dieta-digital *::after {
+      box-sizing: border-box;
+    }
+    #sinergia-dieta-digital .sdd-serif {
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    }
+    #sinergia-dieta-digital .sdd-script {
+      font-family: 'Dancing Script', cursive;
+    }
+    #sinergia-dieta-digital .sdd-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sdd-purple);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    #sinergia-dieta-digital h1.sdd-title {
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      line-height: 1.15;
+      margin: 0 0 0.85rem;
+      color: var(--sdd-dark);
+    }
+    #sinergia-dieta-digital .sdd-accent { color: var(--sdd-purple); }
+    #sinergia-dieta-digital p.sdd-body {
+      font-size: 1rem;
+      line-height: 1.55;
+      margin: 0 0 1rem;
+      color: #4a4a4a;
+    }
+    #sinergia-dieta-digital .sdd-small {
+      font-size: 0.85rem;
+      color: #6a6a6a;
+      margin: 0 0 0.9rem;
+    }
+
+    /* progreso */
+    #sinergia-dieta-digital .sdd-progress-wrap {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    #sinergia-dieta-digital .sdd-progress-wrap.sdd-show { display: flex; }
+    #sinergia-dieta-digital .sdd-progress-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--sdd-purple);
+      white-space: nowrap;
+    }
+    #sinergia-dieta-digital .sdd-progress-track {
+      flex: 1;
+      height: 7px;
+      background: var(--sdd-blush);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    #sinergia-dieta-digital .sdd-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--sdd-purple), var(--sdd-lilac));
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.35s ease;
+    }
+
+    /* pantallas */
+    #sinergia-dieta-digital .sdd-screen { display: none; }
+    #sinergia-dieta-digital .sdd-screen.sdd-active {
+      display: block;
+      animation: sdd-fade 0.35s ease;
+    }
+    @keyframes sdd-fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* contador de selección */
+    #sinergia-dieta-digital .sdd-counter {
+      display: inline-block;
+      background: var(--sdd-white);
+      border: 1px solid var(--sdd-lilac);
+      color: var(--sdd-purple);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    /* grid de opciones */
+    #sinergia-dieta-digital .sdd-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+    #sinergia-dieta-digital .sdd-options.sdd-single-col {
+      grid-template-columns: 1fr;
+    }
+    #sinergia-dieta-digital button.sdd-option {
+      font-family: inherit;
+      font-size: 0.92rem;
+      text-align: left;
+      background: var(--sdd-white);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 0.8rem 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      line-height: 1.3;
+      color: var(--sdd-dark);
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      position: relative;
+    }
+    #sinergia-dieta-digital button.sdd-option:hover { transform: translateY(-2px); }
+    #sinergia-dieta-digital button.sdd-option:focus-visible {
+      outline: 3px solid var(--sdd-purple);
+      outline-offset: 2px;
+    }
+    #sinergia-dieta-digital button.sdd-option .sdd-emoji {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    #sinergia-dieta-digital button.sdd-option[aria-pressed="true"] {
+      background: var(--sdd-pink);
+      border-color: var(--sdd-purple);
+      font-weight: 700;
+    }
+    #sinergia-dieta-digital button.sdd-option[aria-pressed="true"]::after {
+      content: "✓";
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-size: 0.85rem;
+      color: var(--sdd-purple);
+      font-weight: 900;
+    }
+    #sinergia-dieta-digital button.sdd-option:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* botones principales */
+    #sinergia-dieta-digital .sdd-btn-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    #sinergia-dieta-digital button.sdd-btn-primary {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: var(--sdd-dark);
+      color: var(--sdd-cream);
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.6rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+    #sinergia-dieta-digital button.sdd-btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: var(--sdd-purple);
+    }
+    #sinergia-dieta-digital button.sdd-btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+    }
+    #sinergia-dieta-digital button.sdd-btn-text {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.88rem;
+      background: none;
+      border: none;
+      color: var(--sdd-purple);
+      cursor: pointer;
+      padding: 0.6rem 0.3rem;
+      text-decoration: underline;
+    }
+    #sinergia-dieta-digital button.sdd-btn-text:focus-visible,
+    #sinergia-dieta-digital button.sdd-btn-primary:focus-visible {
+      outline: 3px solid var(--sdd-purple);
+      outline-offset: 2px;
+    }
+
+    /* descarga JPG */
+    #sinergia-dieta-digital button.sdd-btn-primary.sdd-btn-accent { background: var(--sdd-purple); }
+    #sinergia-dieta-digital button.sdd-btn-primary.sdd-btn-accent:hover:not(:disabled) { background: var(--sdd-dark); }
+    #sinergia-dieta-digital .sdd-download-card {
+      background: var(--sdd-white);
+      border: 2px dashed var(--sdd-lilac);
+      border-radius: 20px;
+      padding: 1.2rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-download-card h3 { margin: 0 0 0.4rem; font-size: 1.1rem; color: var(--sdd-dark); }
+    #sinergia-dieta-digital .sdd-download-card .sdd-small { margin: 0 0 0.9rem; }
+    #sinergia-dieta-digital .sdd-download-card .sdd-small#sdd-download-status { margin: 0.7rem 0 0; color: var(--sdd-purple); font-weight: 600; }
+    #sinergia-dieta-digital .sdd-download-card .sdd-small#sdd-download-status:empty { display: none; }
+    #sinergia-dieta-digital img.sdd-preview {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      margin-top: 0.9rem;
+      box-shadow: 0 6px 24px rgba(102,90,156,0.18);
+    }
+
+    /* resultado */
+    #sinergia-dieta-digital .sdd-result-card {
+      background: var(--sdd-white);
+      border-radius: 20px;
+      padding: 1.2rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-result-card h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.05rem;
+      color: var(--sdd-purple);
+    }
+    #sinergia-dieta-digital .sdd-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    #sinergia-dieta-digital .sdd-tag-list li {
+      background: var(--sdd-blush);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    #sinergia-dieta-digital .sdd-tag-list.sdd-menos li { background: var(--sdd-lilac); color: var(--sdd-white); }
+    #sinergia-dieta-digital .sdd-day-card {
+      background: var(--sdd-white);
+      border-left: 5px solid var(--sdd-purple);
+      border-radius: 14px;
+      padding: 1.1rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+    #sinergia-dieta-digital .sdd-day-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+    #sinergia-dieta-digital .sdd-day-card p { margin: 0 0 0.5rem; font-size: 0.95rem; line-height: 1.55; }
+    #sinergia-dieta-digital .sdd-day-card ul { margin: 0.3rem 0 0.5rem 1.1rem; padding: 0; font-size: 0.95rem; line-height: 1.6; }
+    #sinergia-dieta-digital .sdd-challenge {
+      background: var(--sdd-pink);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    #sinergia-dieta-digital .sdd-challenge strong { display: block; margin-bottom: 0.35rem; font-size: 1rem; }
+    #sinergia-dieta-digital .sdd-compare {
+      background: var(--sdd-white);
+      border-radius: 16px;
+      padding: 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-compare h3 { margin: 0 0 0.6rem; font-size: 1.05rem; }
+    #sinergia-dieta-digital .sdd-compare .sdd-vs-row { display: flex; gap: 0.6rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+    #sinergia-dieta-digital .sdd-compare .sdd-vs-day {
+      flex: 1;
+      min-width: 130px;
+      background: var(--sdd-cream);
+      border-radius: 12px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.88rem;
+    }
+    #sinergia-dieta-digital .sdd-compare .sdd-vs-day b { display: block; color: var(--sdd-purple); margin-bottom: 0.2rem; }
+    #sinergia-dieta-digital .sdd-compare ul { margin: 0.4rem 0 0 1.1rem; padding: 0; font-size: 0.9rem; line-height: 1.6; color: #4a4a4a; }
+    #sinergia-dieta-digital .sdd-final-phrase {
+      text-align: center;
+      padding: 1.4rem 1rem;
+      background: var(--sdd-dark);
+      color: var(--sdd-cream);
+      border-radius: 18px;
+      margin-bottom: 1.1rem;
+    }
+    #sinergia-dieta-digital .sdd-final-phrase p.sdd-serif {
+      font-size: 1.15rem;
+      line-height: 1.4;
+      margin: 0 0 0.6rem;
+    }
+    #sinergia-dieta-digital .sdd-final-phrase .sdd-script {
+      font-size: 1.3rem;
+      color: var(--sdd-pink);
+    }
+
+    /* mobile */
+    @media (max-width: 420px) {
+      #sinergia-dieta-digital .sdd-options { grid-template-columns: 1fr; }
+      #sinergia-dieta-digital { padding: 1.4rem 1rem 1.8rem; border-radius: 20px; }
+      #sinergia-dieta-digital button.sdd-btn-primary { width: 100%; text-align: center; }
+    }
+
+    /* accesibilidad: respeta reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      #sinergia-dieta-digital *, #sinergia-dieta-digital *::before, #sinergia-dieta-digital *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 
   <!-- ================= BARRA DE PROGRESO ================= -->
   <div class="sdd-progress-wrap" id="sdd-progress-wrap">
@@ -12,59 +353,6 @@
     <h1 class="sdd-title sdd-serif">Diseña tu dieta digital <span class="sdd-accent">✦</span></h1>
     <p class="sdd-body">Tu feed también se alimenta.<br><br>
       Elige qué quieres ver más, qué quieres reducir y recibe un plan personalizado de 3 días para darle mejores señales a tu algoritmo.</p>
-    <div class="sdd-form" id="sdd-form">
-      <div class="sdd-field">
-        <label for="sdd-name">Nombre</label>
-        <input type="text" id="sdd-name" autocomplete="name" maxlength="60" aria-describedby="sdd-name-err">
-        <p class="sdd-error" id="sdd-name-err" aria-live="polite"></p>
-      </div>
-      <div class="sdd-field">
-        <label for="sdd-country">País</label>
-        <select id="sdd-country" autocomplete="country-name" aria-describedby="sdd-country-err">
-          <option value="">Selecciona tu país</option>
-          <option>Argentina</option>
-          <option>Bolivia</option>
-          <option>Brasil</option>
-          <option>Chile</option>
-          <option>Colombia</option>
-          <option>Costa Rica</option>
-          <option>Cuba</option>
-          <option>Ecuador</option>
-          <option>El Salvador</option>
-          <option>España</option>
-          <option>Estados Unidos</option>
-          <option>Guatemala</option>
-          <option>Honduras</option>
-          <option>México</option>
-          <option>Nicaragua</option>
-          <option>Panamá</option>
-          <option>Paraguay</option>
-          <option>Perú</option>
-          <option>Puerto Rico</option>
-          <option>República Dominicana</option>
-          <option>Uruguay</option>
-          <option>Venezuela</option>
-          <option>Otro país</option>
-        </select>
-        <p class="sdd-error" id="sdd-country-err" aria-live="polite"></p>
-      </div>
-      <div class="sdd-field">
-        <label for="sdd-email">Correo electrónico</label>
-        <input type="email" id="sdd-email" autocomplete="email" inputmode="email" maxlength="120" aria-describedby="sdd-email-err">
-        <p class="sdd-error" id="sdd-email-err" aria-live="polite"></p>
-      </div>
-      <div class="sdd-hp" aria-hidden="true">
-        <label for="sdd-website">Dejar este campo vacío</label>
-        <input type="text" id="sdd-website" tabindex="-1" autocomplete="off">
-      </div>
-      <div>
-        <div class="sdd-consent">
-          <input type="checkbox" id="sdd-consent" aria-describedby="sdd-consent-err">
-          <label for="sdd-consent">Acepto que SINERG.ia guarde mi nombre, país y correo para contactarme sobre esta y otras actividades.<span id="sdd-privacy-slot"></span></label>
-        </div>
-        <p class="sdd-error" id="sdd-consent-err" aria-live="polite"></p>
-      </div>
-    </div>
     <div class="sdd-btn-row">
       <button type="button" class="sdd-btn-primary" id="sdd-start-btn">Crear mi dieta digital</button>
     </div>
@@ -128,7 +416,6 @@
   <section class="sdd-screen" id="sdd-screen-result" aria-labelledby="sdd-result-title">
     <span class="sdd-eyebrow">Tu resultado</span>
     <h1 class="sdd-title sdd-serif" id="sdd-result-title">Tu dieta digital <span class="sdd-accent">✦</span></h1>
-    <p class="sdd-for" id="sdd-result-for"></p>
     <p class="sdd-body" id="sdd-result-objetivo" style="font-weight:700;"></p>
 
     <div class="sdd-result-card">
@@ -206,3 +493,552 @@
   </section>
 
 </div>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('sinergia-dieta-digital');
+  if (!root) return;
+
+  /* ---------- datos ---------- */
+  var MAS_OPTS = [
+    { id: 'ia', label: 'IA y tecnología', emoji: '🤖' },
+    { id: 'creatividad', label: 'Creatividad', emoji: '🎨' },
+    { id: 'aprendizaje', label: 'Aprendizaje', emoji: '🧠' },
+    { id: 'bienestar', label: 'Bienestar', emoji: '🌿' },
+    { id: 'finanzas', label: 'Finanzas', emoji: '💰' },
+    { id: 'noticias', label: 'Noticias y contexto', emoji: '📰' },
+    { id: 'trabajo', label: 'Trabajo / negocio', emoji: '💼' },
+    { id: 'libros', label: 'Libros', emoji: '📚' },
+    { id: 'musica', label: 'Música y cultura', emoji: '🎵' },
+    { id: 'recetas', label: 'Recetas / hobbies', emoji: '🍳' }
+  ];
+  var MENOS_OPTS = [
+    { id: 'polemica', label: 'Polémica y peleas', emoji: '🔥' },
+    { id: 'compras', label: 'Compras impulsivas', emoji: '🛍️' },
+    { id: 'noticiasneg', label: 'Noticias negativas', emoji: '📰' },
+    { id: 'chisme', label: 'Chisme', emoji: '👀' },
+    { id: 'repetitivo', label: 'Contenido repetitivo', emoji: '🔁' },
+    { id: 'comparacion', label: 'Comparación / apariencia', emoji: '🪞' },
+    { id: 'rabia', label: 'Contenido que me da rabia', emoji: '😤' },
+    { id: 'distraccion', label: 'Distracción infinita', emoji: '♾️' },
+    { id: 'publicidad', label: 'Publicidad que no me interesa', emoji: '📢' },
+    { id: 'temasviejos', label: 'Temas que ya no me representan', emoji: '🧹' }
+  ];
+  var Q3_OPTS = [
+    { id: 'comenta', label: 'Entro a comentarios o respondo 😅' },
+    { id: 'comparte', label: 'Lo comparto para comentarlo con alguien' },
+    { id: 'pasa', label: 'Paso rápido y sigo' },
+    { id: 'silencia', label: 'Uso "No me interesa", silencio o dejo de seguir' }
+  ];
+  var Q4_OPTS = [
+    { id: 'aprender', label: 'Aprender algo útil 🧠', goal: 'aprender algo útil' },
+    { id: 'inspirar', label: 'Inspirarme y crear ✨', goal: 'inspirarte y crear' },
+    { id: 'informar', label: 'Informarme mejor 📰', goal: 'informarte mejor' },
+    { id: 'sentir', label: 'Sentirme mejor después de usarlo 🌿', goal: 'sentirte mejor después de usar tu feed' },
+    { id: 'descubrir', label: 'Descubrir herramientas, ideas y oportunidades 🔎', goal: 'descubrir herramientas, ideas y oportunidades' },
+    { id: 'entretener', label: 'Entretenerme sin sentir que perdí el día 😂', goal: 'entretenerte sin sentir que perdiste el día' }
+  ];
+  var Q5_OPTS = [
+    { id: 'instagram', label: 'Instagram' },
+    { id: 'tiktok', label: 'TikTok' },
+    { id: 'youtube', label: 'YouTube' }
+  ];
+
+  var CHALLENGES = {
+    comenta: {
+      title: '👀 Tu reto especial',
+      text: 'Cuando algo solo te dé rabia, prueba no convertir el comentario en otra señal de atención. No necesitas ganar todas las discusiones de internet 😂. Si realmente no quieres verlo, pasa de largo o utiliza una herramienta como "No me interesa".'
+    },
+    comparte: {
+      title: '👀 Tu reto especial',
+      text: 'Antes de compartir algo solamente para criticarlo, pregúntate: ¿quiero seguir dándole atención a este tema? Compartir también puede mantener ese contenido circulando dentro de tu experiencia digital.'
+    },
+    pasa: {
+      title: '✨ Vas bien',
+      text: 'Ya haces algo importante: no regalarle demasiada atención a contenido que no quieres consumir. Cuando quieras dar una señal todavía más explícita, puedes utilizar herramientas como "No me interesa".'
+    },
+    silencia: {
+      title: '✨ Ya estás dando señales intencionales',
+      text: 'Ahora tu reto está del otro lado: no solamente reducir lo que no quieres, sino alimentar activamente los temas que sí quieres que aparezcan.'
+    }
+  };
+
+  /* ---------- estado (en memoria, sin localStorage) ---------- */
+  var state = { mas: [], menos: [], q3: '', q4: '', q5: '' };
+
+  var screens = ['sdd-screen-intro', 'sdd-screen-q1', 'sdd-screen-q2', 'sdd-screen-q3', 'sdd-screen-q4', 'sdd-screen-q5', 'sdd-screen-result'];
+  var questionScreens = ['sdd-screen-q1', 'sdd-screen-q2', 'sdd-screen-q3', 'sdd-screen-q4', 'sdd-screen-q5'];
+
+  function $(id) { return root.querySelector('#' + id); }
+
+  function showScreen(id, noScroll) {
+    screens.forEach(function (s) {
+      var el = $(s);
+      if (!el) return;
+      el.classList.toggle('sdd-active', s === id);
+    });
+    var progressWrap = $('sdd-progress-wrap');
+    var qIndex = questionScreens.indexOf(id);
+    if (qIndex > -1) {
+      progressWrap.classList.add('sdd-show');
+      $('sdd-progress-label').textContent = 'Pregunta ' + (qIndex + 1) + ' de 5';
+      $('sdd-progress-fill').style.width = (((qIndex + 1) / 5) * 100) + '%';
+    } else {
+      progressWrap.classList.remove('sdd-show');
+    }
+    if (!noScroll) { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+
+  /* ---------- construir opciones multi-selección (máx 3) ---------- */
+  function buildMultiOptions(containerId, options, key, counterId, nextBtnId) {
+    var container = $(containerId);
+    container.innerHTML = '';
+    options.forEach(function (opt) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sdd-option';
+      btn.setAttribute('aria-pressed', 'false');
+      btn.dataset.id = opt.id;
+      btn.innerHTML = '<span class="sdd-emoji" aria-hidden="true">' + opt.emoji + '</span><span>' + opt.label + '</span>';
+      btn.addEventListener('click', function () {
+        var arr = state[key];
+        var idx = arr.indexOf(opt.id);
+        if (idx > -1) {
+          arr.splice(idx, 1);
+        } else {
+          if (arr.length >= 3) return;
+          arr.push(opt.id);
+        }
+        btn.setAttribute('aria-pressed', idx > -1 ? 'false' : 'true');
+        updateMultiState(containerId, options, key, counterId, nextBtnId);
+      });
+      container.appendChild(btn);
+    });
+    updateMultiState(containerId, options, key, counterId, nextBtnId);
+  }
+
+  function updateMultiState(containerId, options, key, counterId, nextBtnId) {
+    var arr = state[key];
+    $(counterId).textContent = arr.length + '/3';
+    $(nextBtnId).disabled = arr.length !== 3;
+    var buttons = $(containerId).querySelectorAll('.sdd-option');
+    buttons.forEach(function (btn) {
+      var selected = arr.indexOf(btn.dataset.id) > -1;
+      btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      btn.disabled = !selected && arr.length >= 3;
+    });
+  }
+
+  /* ---------- construir opciones de selección única ---------- */
+  function buildSingleOptions(containerId, options, key, nextBtnId) {
+    var container = $(containerId);
+    container.innerHTML = '';
+    options.forEach(function (opt) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sdd-option';
+      btn.setAttribute('aria-pressed', 'false');
+      btn.dataset.id = opt.id;
+      btn.innerHTML = '<span>' + opt.label + '</span>';
+      btn.addEventListener('click', function () {
+        state[key] = opt.id;
+        var buttons = container.querySelectorAll('.sdd-option');
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        $(nextBtnId).disabled = false;
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function labelFor(list, id) {
+    var found = list.filter(function (o) { return o.id === id; })[0];
+    return found ? found.label : '';
+  }
+
+  function buildTagList(elId, ids, list) {
+    var ul = $(elId);
+    ul.innerHTML = '';
+    ids.forEach(function (id) {
+      var opt = list.filter(function (o) { return o.id === id; })[0];
+      if (!opt) return;
+      var li = document.createElement('li');
+      li.textContent = (opt.emoji ? opt.emoji + ' ' : '') + opt.label;
+      ul.appendChild(li);
+    });
+  }
+
+  /* ---------- construir resultado dinámico ---------- */
+  function buildResult() {
+    var goalOpt = Q4_OPTS.filter(function (o) { return o.id === state.q4; })[0];
+    $('sdd-result-objetivo').textContent = 'Tu objetivo: ' + (goalOpt ? goalOpt.goal : '') + '.';
+
+    buildTagList('sdd-tags-mas', state.mas, MAS_OPTS);
+    buildTagList('sdd-tags-menos', state.menos, MENOS_OPTS);
+    $('sdd-tag-plataforma').textContent = labelFor(Q5_OPTS, state.q5);
+
+    var masLabels = state.mas.map(function (id) { return labelFor(MAS_OPTS, id); });
+    var menosLabels = state.menos.map(function (id) { return labelFor(MENOS_OPTS, id); });
+    var plataforma = labelFor(Q5_OPTS, state.q5);
+
+    $('sdd-day1-text').textContent =
+      'Abre ' + plataforma + ' y mira los primeros 10 contenidos recomendados de tu feed. Cuando aparezcan contenidos relacionados con ' +
+      menosLabels.join(', ') + ', observa qué haces normalmente. Si realmente no quieres seguir viendo ese tipo de contenido, evita quedarte interactuando solo por rabia o curiosidad. Cuando tenga sentido, utiliza herramientas como "No me interesa", silenciar o dejar de seguir. No queremos borrar medio internet 😂. Solo empezar a dar señales un poquito más claras.';
+
+    $('sdd-day2-intro').textContent =
+      'Hoy vamos a alimentar lo que sí quieres que crezca. Busca activamente contenido sobre ' + masLabels.join(', ') + '. Haz al menos 3 de estas acciones:';
+
+    $('sdd-day3-text').textContent = 'Vuelve a abrir ' + plataforma + '. Mira nuevamente los primeros 10 contenidos recomendados. Ahora pregúntate:';
+
+    var challenge = CHALLENGES[state.q3];
+    var box = $('sdd-challenge-box');
+    if (challenge) {
+      box.innerHTML = '<strong>' + challenge.title + '</strong>' + challenge.text;
+    } else {
+      box.innerHTML = '';
+    }
+  }
+
+  /* ---------- reinicio total ---------- */
+  function resetAll(noScroll) {
+    state = { mas: [], menos: [], q3: '', q4: '', q5: '' };
+    buildMultiOptions('sdd-q1-options', MAS_OPTS, 'mas', 'sdd-q1-counter', 'sdd-q1-next');
+    buildMultiOptions('sdd-q2-options', MENOS_OPTS, 'menos', 'sdd-q2-counter', 'sdd-q2-next');
+    buildSingleOptions('sdd-q3-options', Q3_OPTS, 'q3', 'sdd-q3-next');
+    buildSingleOptions('sdd-q4-options', Q4_OPTS, 'q4', 'sdd-q4-next');
+    buildSingleOptions('sdd-q5-options', Q5_OPTS, 'q5', 'sdd-q5-next');
+    $('sdd-q3-next').disabled = true;
+    $('sdd-q4-next').disabled = true;
+    $('sdd-q5-next').disabled = true;
+    clearPreview();
+    showScreen('sdd-screen-intro', noScroll);
+  }
+
+  /* ---------- descarga JPG (canvas nativo, sin librerías) ---------- */
+  var lastImageUrl = null;
+
+  var IMG_TIPS = {
+    comenta: { title: '👀 Tu reto especial', text: 'Cuando algo solo te dé rabia, no conviertas el comentario en otra señal de atención. Pasa de largo o usa "No me interesa".' },
+    comparte: { title: '👀 Tu reto especial', text: 'Antes de compartir algo solo para criticarlo, pregúntate: ¿quiero seguir dándole atención a este tema?' },
+    pasa: { title: '✨ Vas bien', text: 'No le regalas demasiada atención a lo que no quieres ver. Para una señal más explícita, usa "No me interesa".' },
+    silencia: { title: '✨ Ya das señales intencionales', text: 'Tu reto ahora: además de reducir lo que no quieres, alimenta activamente los temas que sí quieres ver.' }
+  };
+
+  /* @@IMG-START */
+  var SERIF = '"Source Serif 4", Georgia, "Times New Roman", serif';
+  var SANS = '"Source Sans 3", "Source Sans Pro", "Segoe UI", Helvetica, Arial, sans-serif';
+  var SCRIPT = '"Dancing Script", "Brush Script MT", cursive';
+
+  function joinList(arr) {
+    if (arr.length <= 1) return arr.join('');
+    return arr.slice(0, -1).join(', ') + ' y ' + arr[arr.length - 1];
+  }
+
+  function wrapLines(ctx, text, maxW) {
+    var words = text.split(' ');
+    var lines = [];
+    var line = '';
+    words.forEach(function (w) {
+      var test = line ? line + ' ' + w : w;
+      if (ctx.measureText(test).width > maxW && line) {
+        lines.push(line);
+        line = w;
+      } else {
+        line = test;
+      }
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function rrect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  /* Dibuja la imagen y devuelve la altura que necesita. */
+  function drawDietImage(ctx, W, H, d, isFinal) {
+    var C = { cream: '#FBF5EF', purple: '#665A9C', lilac: '#928AC2', pink: '#F7C4E9', blush: '#FBDAD2', dark: '#2D2D2D', white: '#FFFFFF' };
+    var P = 72;
+    var IW = W - P * 2;
+    var y = 0;
+
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = C.cream;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = C.pink;
+    ctx.fillRect(0, 0, W, 18);
+
+    function chipsCard(title, items, bg, fg) {
+      ctx.font = '700 32px ' + SANS;
+      var innerW = IW - 72;
+      var rows = [[]];
+      var rowW = 0;
+      items.forEach(function (t) {
+        var w = ctx.measureText(t).width + 48;
+        if (rows[rows.length - 1].length && rowW + w > innerW) { rows.push([]); rowW = 0; }
+        rows[rows.length - 1].push({ t: t, w: w });
+        rowW += w + 14;
+      });
+      var cardH = 92 + rows.length * 62 + (rows.length - 1) * 14 + 36;
+      ctx.fillStyle = C.white;
+      rrect(ctx, P, y, IW, cardH, 32);
+      ctx.fill();
+      ctx.fillStyle = C.purple;
+      ctx.font = '700 26px ' + SANS;
+      ctx.fillText(title, P + 36, y + 62);
+      var cy = y + 92;
+      rows.forEach(function (row) {
+        var cx = P + 36;
+        row.forEach(function (c) {
+          ctx.fillStyle = bg;
+          rrect(ctx, cx, cy, c.w, 62, 31);
+          ctx.fill();
+          ctx.fillStyle = fg;
+          ctx.font = '700 32px ' + SANS;
+          ctx.fillText(c.t, cx + 24, cy + 42);
+          cx += c.w + 14;
+        });
+        cy += 62 + 14;
+      });
+      y += cardH + 28;
+    }
+
+    function textCard(title, text, bg, accent) {
+      ctx.font = '400 31px ' + SANS;
+      var lines = wrapLines(ctx, text, IW - 88);
+      var cardH = 112 + (lines.length - 1) * 44 + 44;
+      ctx.fillStyle = bg;
+      rrect(ctx, P, y, IW, cardH, 28);
+      ctx.fill();
+      if (accent) {
+        ctx.save();
+        rrect(ctx, P, y, IW, cardH, 28);
+        ctx.clip();
+        ctx.fillStyle = accent;
+        ctx.fillRect(P, y, 14, cardH);
+        ctx.restore();
+      }
+      ctx.fillStyle = C.dark;
+      ctx.font = '700 38px ' + SERIF;
+      ctx.fillText(title, P + 44, y + 68);
+      ctx.font = '400 31px ' + SANS;
+      ctx.fillStyle = '#3d3d3d';
+      lines.forEach(function (ln, i) { ctx.fillText(ln, P + 44, y + 120 + i * 44); });
+      y += cardH + 26;
+    }
+
+    /* encabezado */
+    y = 124;
+    ctx.fillStyle = C.purple;
+    ctx.font = '700 26px ' + SANS;
+    ctx.fillText('EPISODIO 9 · ACTIVIDAD SINERG.ia', P, y);
+    y += 104;
+    ctx.fillStyle = C.dark;
+    ctx.font = '700 90px ' + SERIF;
+    var tw = ctx.measureText('Tu dieta digital').width;
+    ctx.fillText('Tu dieta digital', P, y);
+    ctx.fillStyle = C.purple;
+    ctx.fillText(' ✦', P + tw, y);
+
+    /* objetivo */
+    y += 40;
+    ctx.fillStyle = C.dark;
+    ctx.font = '600 40px ' + SANS;
+    wrapLines(ctx, 'Tu objetivo: ' + d.goal + '.', IW).forEach(function (ln) {
+      y += 54;
+      ctx.fillText(ln, P, y);
+    });
+
+    /* plataforma */
+    y += 36;
+    ctx.font = '700 30px ' + SANS;
+    var pillText = 'Plataforma del experimento: ' + d.plat;
+    var pw = ctx.measureText(pillText).width + 56;
+    ctx.fillStyle = C.purple;
+    rrect(ctx, P, y, pw, 64, 32);
+    ctx.fill();
+    ctx.fillStyle = C.white;
+    ctx.fillText(pillText, P + 28, y + 42);
+    y += 64 + 44;
+
+    /* más / menos */
+    chipsCard('QUIERO MÁS', d.mas, C.blush, C.dark);
+    chipsCard('QUIERO MENOS', d.menos, C.purple, C.white);
+
+    /* plan de 3 días */
+    y += 34;
+    ctx.fillStyle = C.dark;
+    ctx.font = '700 48px ' + SERIF;
+    ctx.fillText('Tu plan personalizado de 3 días', P, y);
+    y += 40;
+    d.days.forEach(function (day) { textCard(day.title, day.text, C.white, C.purple); });
+
+    /* reto / consejo según la pregunta 3 */
+    if (d.tip) textCard(d.tip.title, d.tip.text, C.pink, null);
+
+    /* frase final */
+    y += 10;
+    var phrase = 'Tu algoritmo aprende de lo que consumes. Alimenta también aquello que quieres que crezca.';
+    ctx.font = '600 38px ' + SERIF;
+    var pl = wrapLines(ctx, phrase, IW - 110);
+    var firstB = y + 88;
+    var scriptB = firstB + (pl.length - 1) * 54 + 84;
+    var boxH = scriptB - y + 52;
+    ctx.fillStyle = C.dark;
+    rrect(ctx, P, y, IW, boxH, 32);
+    ctx.fill();
+    ctx.textAlign = 'center';
+    ctx.fillStyle = C.cream;
+    ctx.font = '600 38px ' + SERIF;
+    pl.forEach(function (ln, i) { ctx.fillText(ln, W / 2, firstB + i * 54); });
+    var sig = '✦ La IA no nos reemplaza. Nos potencia.';
+    var sigSize = 48;
+    ctx.font = '600 ' + sigSize + 'px ' + SCRIPT;
+    while (ctx.measureText(sig).width > IW - 80 && sigSize > 28) {
+      sigSize -= 2;
+      ctx.font = '600 ' + sigSize + 'px ' + SCRIPT;
+    }
+    ctx.fillStyle = C.pink;
+    ctx.fillText(sig, W / 2, scriptB);
+    y += boxH;
+
+    /* pie */
+    var footerY = y + 74;
+    if (isFinal) footerY = Math.max(footerY, H - 64);
+    ctx.fillStyle = C.purple;
+    ctx.font = '700 28px ' + SANS;
+    ctx.fillText('lasinergia.com.co', W / 2, footerY);
+    return footerY + 60;
+  }
+
+  function renderDietImage(d) {
+    var W = 1080;
+    var tmp = document.createElement('canvas');
+    tmp.width = W;
+    tmp.height = 4500;
+    var endY = drawDietImage(tmp.getContext('2d'), W, 4500, d, false);
+    var H = Math.max(1920, Math.ceil(endY));
+    var cv = document.createElement('canvas');
+    cv.width = W;
+    cv.height = H;
+    drawDietImage(cv.getContext('2d'), W, H, d, true);
+    return cv;
+  }
+  /* @@IMG-END */
+
+  function findOpt(list, id) {
+    return list.filter(function (o) { return o.id === id; })[0];
+  }
+
+  function buildImageData() {
+    var goal = findOpt(Q4_OPTS, state.q4);
+    var mas = state.mas.map(function (id) { return findOpt(MAS_OPTS, id); });
+    var menos = state.menos.map(function (id) { return findOpt(MENOS_OPTS, id); });
+    var plat = labelFor(Q5_OPTS, state.q5);
+    var masL = mas.map(function (o) { return o.label; });
+    var menosL = menos.map(function (o) { return o.label; });
+    return {
+      goal: goal ? goal.goal : '',
+      plat: plat,
+      mas: mas.map(function (o) { return o.emoji + ' ' + o.label; }),
+      menos: menos.map(function (o) { return o.emoji + ' ' + o.label; }),
+      days: [
+        { title: 'Día 1 — Limpia 🔎', text: 'Abre ' + plat + ' y mira los primeros 10 contenidos recomendados. Si aparece ' + joinList(menosL) + ', evita interactuar solo por rabia o curiosidad y usa "No me interesa", silenciar o dejar de seguir cuando tenga sentido.' },
+        { title: 'Día 2 — Alimenta 🌱', text: 'Busca activamente ' + joinList(masL) + '. Haz al menos 3 acciones: buscar el tema, seguir una cuenta que aporte, guardar algo útil, ver completo lo que te interese o compartir lo que te sirvió.' },
+        { title: 'Día 3 — Compara ✦', text: 'Vuelve a abrir ' + plat + ' y mira otra vez los primeros 10 contenidos. ¿Apareció más de lo que elegiste? ¿Menos de lo que querías reducir? Tu comportamiento también participa en lo que ves.' }
+      ],
+      tip: IMG_TIPS[state.q3] || null
+    };
+  }
+
+  function clearPreview() {
+    if (lastImageUrl && lastImageUrl.indexOf('blob:') === 0) { URL.revokeObjectURL(lastImageUrl); }
+    lastImageUrl = null;
+    var img = $('sdd-preview');
+    if (img) img.removeAttribute('src');
+    $('sdd-preview-wrap').style.display = 'none';
+    $('sdd-download-status').textContent = '';
+    $('sdd-download-btn').disabled = false;
+  }
+
+  function deliverImage(url) {
+    if (lastImageUrl && lastImageUrl.indexOf('blob:') === 0) { URL.revokeObjectURL(lastImageUrl); }
+    lastImageUrl = url;
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'mi-dieta-digital-sinergia.jpg';
+    a.style.display = 'none';
+    root.appendChild(a);
+    a.click();
+    root.removeChild(a);
+    $('sdd-preview').src = url;
+    $('sdd-preview-wrap').style.display = 'block';
+    $('sdd-download-status').textContent = '¡Listo! Si la descarga no empezó sola, mantén presionada la imagen de abajo y elige "Guardar imagen".';
+    $('sdd-download-btn').disabled = false;
+  }
+
+  function onDownload() {
+    var btn = $('sdd-download-btn');
+    var status = $('sdd-download-status');
+    btn.disabled = true;
+    status.textContent = 'Preparando tu imagen…';
+
+    function fail() {
+      status.textContent = 'No pudimos generar la imagen. Inténtalo de nuevo en unos segundos.';
+      btn.disabled = false;
+    }
+
+    var d = buildImageData();
+    var fontsReady = Promise.resolve();
+    if (document.fonts && document.fonts.load) {
+      fontsReady = Promise.race([
+        Promise.all([
+          document.fonts.load('700 40px "Source Serif 4"'),
+          document.fonts.load('400 30px "Source Sans 3"'),
+          document.fonts.load('700 30px "Source Sans 3"'),
+          document.fonts.load('600 40px "Dancing Script"')
+        ]),
+        new Promise(function (res) { setTimeout(res, 2500); })
+      ]).catch(function () {});
+    }
+    fontsReady.then(function () {
+      var cv = renderDietImage(d);
+      if (cv.toBlob) {
+        cv.toBlob(function (blob) {
+          if (!blob) { fail(); return; }
+          deliverImage(URL.createObjectURL(blob));
+        }, 'image/jpeg', 0.92);
+      } else {
+        deliverImage(cv.toDataURL('image/jpeg', 0.92));
+      }
+    }).catch(fail);
+  }
+
+  /* ---------- navegación ---------- */
+  root.querySelectorAll('[data-back]').forEach(function (btn) {
+    btn.addEventListener('click', function () { showScreen(btn.dataset.back); });
+  });
+
+  $('sdd-start-btn').addEventListener('click', function () { showScreen('sdd-screen-q1'); });
+  $('sdd-q1-next').addEventListener('click', function () { showScreen('sdd-screen-q2'); });
+  $('sdd-q2-next').addEventListener('click', function () { showScreen('sdd-screen-q3'); });
+  $('sdd-q3-next').addEventListener('click', function () { showScreen('sdd-screen-q4'); });
+  $('sdd-q4-next').addEventListener('click', function () { showScreen('sdd-screen-q5'); });
+  $('sdd-q5-next').addEventListener('click', function () {
+    buildResult();
+    showScreen('sdd-screen-result');
+  });
+  $('sdd-restart-btn').addEventListener('click', function () { resetAll(false); });
+  $('sdd-download-btn').addEventListener('click', onDownload);
+
+  /* ---------- inicializar ---------- */
+  resetAll(true);
+})();
+</script>

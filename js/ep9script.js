@@ -1,11 +1,17 @@
 (function () {
   'use strict';
+  
   var SDD_CONFIG = {
-    endpoint: '',
+    // Aquí está la URL de tu App Script
+    endpoint: 'https://script.google.com/macros/s/AKfycbynM0vbe56nPTeRQVBzo_GeYhye5PzQVYl34CmU1Y5PD2TCJIU6-G9OSm65GAb82hQo/exec',
     privacyUrl: ''
   };
+  
   var root = document.getElementById('sinergia-dieta-digital');
   if (!root) return;
+
+  // Utilizamos getElementById para asegurar que siempre encuentre los elementos
+  function $(id) { return document.getElementById(id); }
 
   /* ---------- datos ---------- */
   var MAS_OPTS = [
@@ -71,21 +77,19 @@
     }
   };
 
-  /* ---------- estado (en memoria, sin localStorage) ---------- */
+  /* ---------- estado ---------- */
   var state = { mas: [], menos: [], q3: '', q4: '', q5: '', user: { name: '', country: '', email: '' } };
-  var leadSentFor = '';
 
   var screens = ['sdd-screen-intro', 'sdd-screen-q1', 'sdd-screen-q2', 'sdd-screen-q3', 'sdd-screen-q4', 'sdd-screen-q5', 'sdd-screen-result'];
   var questionScreens = ['sdd-screen-q1', 'sdd-screen-q2', 'sdd-screen-q3', 'sdd-screen-q4', 'sdd-screen-q5'];
 
-  function $(id) { return root.querySelector('#' + id); }
-
-  function showScreen(id, noScroll) {
+function showScreen(id, noScroll) {
     screens.forEach(function (s) {
       var el = $(s);
       if (!el) return;
       el.classList.toggle('sdd-active', s === id);
     });
+    
     var progressWrap = $('sdd-progress-wrap');
     var qIndex = questionScreens.indexOf(id);
     if (qIndex > -1) {
@@ -95,12 +99,35 @@
     } else {
       progressWrap.classList.remove('sdd-show');
     }
+    
+    // FIX 1: Forzamos repintado para evitar que los botones queden invisibles
+    setTimeout(function() {
+      var activeScreen = $(id);
+      if(activeScreen) {
+        var optionsContainer = activeScreen.querySelector('.sdd-options');
+        if(optionsContainer) {
+           optionsContainer.style.display = 'none';
+           optionsContainer.offsetHeight; // Forzamos reflow
+           optionsContainer.style.display = ''; 
+        }
+      }
+    }, 10);
+
+    // FIX 2: Liberamos la altura del acordeón padre para que no corte el resultado
+    setTimeout(function() {
+      var accordionBody = root.closest('.episode-body');
+      if (accordionBody) {
+        // Al poner 'none', el acordeón se estirará todo lo que el contenido necesite
+        accordionBody.style.maxHeight = 'none';
+      }
+    }, 50);
+
     if (!noScroll) { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
 
-  /* ---------- construir opciones multi-selección (máx 3) ---------- */
   function buildMultiOptions(containerId, options, key, counterId, nextBtnId) {
     var container = $(containerId);
+    if(!container) return;
     container.innerHTML = '';
     options.forEach(function (opt) {
       var btn = document.createElement('button');
@@ -138,9 +165,9 @@
     });
   }
 
-  /* ---------- construir opciones de selección única ---------- */
   function buildSingleOptions(containerId, options, key, nextBtnId) {
     var container = $(containerId);
+    if(!container) return;
     container.innerHTML = '';
     options.forEach(function (opt) {
       var btn = document.createElement('button');
@@ -176,7 +203,6 @@
     });
   }
 
-  /* ---------- construir resultado dinámico ---------- */
   function buildResult() {
     $('sdd-result-for').textContent = state.user.name ? 'Hecha para ' + state.user.name : '';
     var goalOpt = Q4_OPTS.filter(function (o) { return o.id === state.q4; })[0];
@@ -208,23 +234,6 @@
     }
   }
 
-  /* ---------- reinicio total ---------- */
-  function resetAll(noScroll) {
-    state = { mas: [], menos: [], q3: '', q4: '', q5: '', user: { name: '', country: '', email: '' } };
-    clearForm();
-    buildMultiOptions('sdd-q1-options', MAS_OPTS, 'mas', 'sdd-q1-counter', 'sdd-q1-next');
-    buildMultiOptions('sdd-q2-options', MENOS_OPTS, 'menos', 'sdd-q2-counter', 'sdd-q2-next');
-    buildSingleOptions('sdd-q3-options', Q3_OPTS, 'q3', 'sdd-q3-next');
-    buildSingleOptions('sdd-q4-options', Q4_OPTS, 'q4', 'sdd-q4-next');
-    buildSingleOptions('sdd-q5-options', Q5_OPTS, 'q5', 'sdd-q5-next');
-    $('sdd-q3-next').disabled = true;
-    $('sdd-q4-next').disabled = true;
-    $('sdd-q5-next').disabled = true;
-    clearPreview();
-    showScreen('sdd-screen-intro', noScroll);
-  }
-
-  /* ---------- formulario inicial ---------- */
   function setError(fieldId, errId, msg) {
     var f = $(fieldId);
     $(errId).textContent = msg || '';
@@ -264,39 +273,15 @@
     return { name: name, country: country, email: email };
   }
 
-  function sendLead(user) {
-    if (!SDD_CONFIG.endpoint) return;
-    if ($('sdd-website').value) return; /* campo trampa para bots */
-    if (leadSentFor === user.email) return; /* evita duplicados si la persona vuelve atrás */
-    leadSentFor = user.email;
-    try {
-      fetch(SDD_CONFIG.endpoint, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          fecha: new Date().toISOString(),
-          nombre: user.name,
-          pais: user.country,
-          email: user.email,
-          consentimiento: true,
-          origen: 'dieta-digital-ep9'
-        })
-      }).catch(function () {});
-    } catch (err) { /* si falla el envío, la actividad continúa igual */ }
-  }
-
   function onStart() {
     var user = validateForm();
     if (!user) return;
     state.user = user;
-    sendLead(user);
+    // Se removió el envío anticipado para consolidar todo al final
     showScreen('sdd-screen-q1');
   }
 
-  /* ---------- descarga JPG (canvas nativo, sin librerías) ---------- */
   var lastImageUrl = null;
-
   var IMG_TIPS = {
     comenta: { title: '👀 Tu reto especial', text: 'Cuando algo solo te dé rabia, no conviertas el comentario en otra señal de atención. Pasa de largo o usa "No me interesa".' },
     comparte: { title: '👀 Tu reto especial', text: 'Antes de compartir algo solo para criticarlo, pregúntate: ¿quiero seguir dándole atención a este tema?' },
@@ -304,7 +289,6 @@
     silencia: { title: '✨ Ya das señales intencionales', text: 'Tu reto ahora: además de reducir lo que no quieres, alimenta activamente los temas que sí quieres ver.' }
   };
 
-  /* @@IMG-START */
   var SERIF = '"Source Serif 4", Georgia, "Times New Roman", serif';
   var SANS = '"Source Sans 3", "Source Sans Pro", "Segoe UI", Helvetica, Arial, sans-serif';
   var SCRIPT = '"Dancing Script", "Brush Script MT", cursive';
@@ -341,7 +325,6 @@
     ctx.closePath();
   }
 
-  /* Dibuja la imagen y devuelve la altura que necesita. */
   function drawDietImage(ctx, W, H, d, isFinal) {
     var C = { cream: '#FBF5EF', purple: '#665A9C', lilac: '#928AC2', pink: '#F7C4E9', blush: '#FBDAD2', dark: '#2D2D2D', white: '#FFFFFF' };
     var P = 72;
@@ -414,7 +397,6 @@
       y += cardH + 26;
     }
 
-    /* encabezado */
     y = 124;
     ctx.fillStyle = C.purple;
     ctx.font = '700 26px ' + SANS;
@@ -427,7 +409,6 @@
     ctx.fillStyle = C.purple;
     ctx.fillText(' ✦', P + tw, y);
 
-    /* nombre */
     if (d.name) {
       y += 66;
       var nmSize = 46;
@@ -441,7 +422,6 @@
       ctx.fillText(nmText, P, y);
     }
 
-    /* objetivo */
     y += 40;
     ctx.fillStyle = C.dark;
     ctx.font = '600 40px ' + SANS;
@@ -450,7 +430,6 @@
       ctx.fillText(ln, P, y);
     });
 
-    /* plataforma */
     y += 36;
     ctx.font = '700 30px ' + SANS;
     var pillText = 'Plataforma del experimento: ' + d.plat;
@@ -462,11 +441,9 @@
     ctx.fillText(pillText, P + 28, y + 42);
     y += 64 + 44;
 
-    /* más / menos */
     chipsCard('QUIERO MÁS', d.mas, C.blush, C.dark);
     chipsCard('QUIERO MENOS', d.menos, C.purple, C.white);
 
-    /* plan de 3 días */
     y += 34;
     ctx.fillStyle = C.dark;
     ctx.font = '700 48px ' + SERIF;
@@ -474,10 +451,8 @@
     y += 40;
     d.days.forEach(function (day) { textCard(day.title, day.text, C.white, C.purple); });
 
-    /* reto / consejo según la pregunta 3 */
     if (d.tip) textCard(d.tip.title, d.tip.text, C.pink, null);
 
-    /* frase final */
     y += 10;
     var phrase = 'Tu algoritmo aprende de lo que consumes. Alimenta también aquello que quieres que crezca.';
     ctx.font = '600 38px ' + SERIF;
@@ -503,7 +478,6 @@
     ctx.fillText(sig, W / 2, scriptB);
     y += boxH;
 
-    /* pie */
     var footerY = y + 74;
     if (isFinal) footerY = Math.max(footerY, H - 64);
     ctx.fillStyle = C.purple;
@@ -525,7 +499,6 @@
     drawDietImage(cv.getContext('2d'), W, H, d, true);
     return cv;
   }
-  /* @@IMG-END */
 
   function findOpt(list, id) {
     return list.filter(function (o) { return o.id === id; })[0];
@@ -616,6 +589,21 @@
     }).catch(fail);
   }
 
+  function resetAll(noScroll) {
+    state = { mas: [], menos: [], q3: '', q4: '', q5: '', user: { name: '', country: '', email: '' } };
+    clearForm();
+    buildMultiOptions('sdd-q1-options', MAS_OPTS, 'mas', 'sdd-q1-counter', 'sdd-q1-next');
+    buildMultiOptions('sdd-q2-options', MENOS_OPTS, 'menos', 'sdd-q2-counter', 'sdd-q2-next');
+    buildSingleOptions('sdd-q3-options', Q3_OPTS, 'q3', 'sdd-q3-next');
+    buildSingleOptions('sdd-q4-options', Q4_OPTS, 'q4', 'sdd-q4-next');
+    buildSingleOptions('sdd-q5-options', Q5_OPTS, 'q5', 'sdd-q5-next');
+    $('sdd-q3-next').disabled = true;
+    $('sdd-q4-next').disabled = true;
+    $('sdd-q5-next').disabled = true;
+    clearPreview();
+    showScreen('sdd-screen-intro', noScroll);
+  }
+
   /* ---------- navegación ---------- */
   root.querySelectorAll('[data-back]').forEach(function (btn) {
     btn.addEventListener('click', function () { showScreen(btn.dataset.back); });
@@ -631,10 +619,32 @@
   $('sdd-q2-next').addEventListener('click', function () { showScreen('sdd-screen-q3'); });
   $('sdd-q3-next').addEventListener('click', function () { showScreen('sdd-screen-q4'); });
   $('sdd-q4-next').addEventListener('click', function () { showScreen('sdd-screen-q5'); });
+  
   $('sdd-q5-next').addEventListener('click', function () {
     buildResult();
     showScreen('sdd-screen-result');
+
+    var payload = {
+      nombre: state.user.name,
+      pais: state.user.country,
+      correo: state.user.email,
+      mas: state.mas,
+      menos: state.menos,
+      q3: state.q3,
+      q4: state.q4,
+      q5: state.q5
+    };
+
+    if (SDD_CONFIG.endpoint) {
+      fetch(SDD_CONFIG.endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).catch(function(err) { console.error('Error:', err); });
+    }
   });
+
   $('sdd-restart-btn').addEventListener('click', function () { resetAll(false); });
   $('sdd-download-btn').addEventListener('click', onDownload);
 
@@ -648,5 +658,6 @@
     $('sdd-privacy-slot').appendChild(document.createTextNode(' '));
     $('sdd-privacy-slot').appendChild(privLink);
   }
+  
   resetAll(true);
 })();
