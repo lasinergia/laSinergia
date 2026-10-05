@@ -3,7 +3,7 @@
   
   var SDD_CONFIG = {
     // Aquí está la URL de tu App Script
-    endpoint: 'https://script.google.com/macros/s/AKfycbynM0vbe56nPTeRQVBzo_GeYhye5PzQVYl34CmU1Y5PD2TCJIU6-G9OSm65GAb82hQo/exec',
+    endpoint: 'https://script.google.com/macros/s/AKfycbxyDsYh4r80ZrDPKbKgA9vwy_UD6zZ_Nk2G27d3L4-Qq2CpKyXS8nT6eC-SgAgy2-zj/exec',
     privacyUrl: ''
   };
   
