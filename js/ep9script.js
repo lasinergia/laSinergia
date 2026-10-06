@@ -2,7 +2,6 @@
   'use strict';
   
   var SDD_CONFIG = {
-    // Aquí está la URL de tu App Script
     endpoint: 'https://script.google.com/macros/s/AKfycbxyDsYh4r80ZrDPKbKgA9vwy_UD6zZ_Nk2G27d3L4-Qq2CpKyXS8nT6eC-SgAgy2-zj/exec',
     privacyUrl: ''
   };
@@ -10,7 +9,6 @@
   var root = document.getElementById('sinergia-dieta-digital');
   if (!root) return;
 
-  // Utilizamos getElementById para asegurar que siempre encuentre los elementos
   function $(id) { return document.getElementById(id); }
 
   /* ---------- datos ---------- */
@@ -83,13 +81,37 @@
   var screens = ['sdd-screen-intro', 'sdd-screen-q1', 'sdd-screen-q2', 'sdd-screen-q3', 'sdd-screen-q4', 'sdd-screen-q5', 'sdd-screen-result'];
   var questionScreens = ['sdd-screen-q1', 'sdd-screen-q2', 'sdd-screen-q3', 'sdd-screen-q4', 'sdd-screen-q5'];
 
-function showScreen(id, noScroll) {
+  /* ---------- FIX DEFINITIVO Y AMIGABLE PARA EL ACORDEÓN ---------- */
+  var accordionBody = root.closest('.episode-body');
+  var toggleBtn = accordionBody ? accordionBody.previousElementSibling : null;
+
+  function updateAccordionHeight() {
+    if (accordionBody && accordionBody.clientHeight > 0) {
+      // Ajusta la altura dinámicamente según el contenido
+      accordionBody.style.maxHeight = (accordionBody.scrollHeight + 150) + 'px';
+    }
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+      if (accordionBody.clientHeight > 0) {
+        // Si el usuario hace clic para CERRARLO, borramos nuestra altura extra
+        // para que tu CSS original (max-height: 0) pueda encogerlo suavemente.
+        accordionBody.style.maxHeight = '';
+      } else {
+        // Si lo está ABRIENDO, le damos 350ms al CSS para que empiece a abrir, 
+        // y luego calculamos la altura para que no corte nada.
+        setTimeout(updateAccordionHeight, 350);
+      }
+    });
+  }
+
+  function showScreen(id, noScroll) {
     screens.forEach(function (s) {
       var el = $(s);
       if (!el) return;
       el.classList.toggle('sdd-active', s === id);
     });
-    
     var progressWrap = $('sdd-progress-wrap');
     var qIndex = questionScreens.indexOf(id);
     if (qIndex > -1) {
@@ -100,7 +122,7 @@ function showScreen(id, noScroll) {
       progressWrap.classList.remove('sdd-show');
     }
     
-    // FIX 1: Forzamos repintado para evitar que los botones queden invisibles
+    // Evita que los botones queden invisibles al cambiar de pantalla
     setTimeout(function() {
       var activeScreen = $(id);
       if(activeScreen) {
@@ -113,14 +135,9 @@ function showScreen(id, noScroll) {
       }
     }, 10);
 
-    // FIX 2: Liberamos la altura del acordeón padre para que no corte el resultado
-    setTimeout(function() {
-      var accordionBody = root.closest('.episode-body');
-      if (accordionBody) {
-        // Al poner 'none', el acordeón se estirará todo lo que el contenido necesite
-        accordionBody.style.maxHeight = 'none';
-      }
-    }, 50);
+    // Actualiza la altura para que las tarjetas grandes (como resultados) entren perfecto
+    setTimeout(updateAccordionHeight, 50);
+    setTimeout(updateAccordionHeight, 400);
 
     if (!noScroll) { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
@@ -277,7 +294,6 @@ function showScreen(id, noScroll) {
     var user = validateForm();
     if (!user) return;
     state.user = user;
-    // Se removió el envío anticipado para consolidar todo al final
     showScreen('sdd-screen-q1');
   }
 
@@ -550,6 +566,9 @@ function showScreen(id, noScroll) {
     $('sdd-preview-wrap').style.display = 'block';
     $('sdd-download-status').textContent = '¡Listo! Si la descarga no empezó sola, mantén presionada la imagen de abajo y elige "Guardar imagen".';
     $('sdd-download-btn').disabled = false;
+    
+    // Al añadir la imagen al DOM, avisamos que debe volver a crecer el acordeón
+    setTimeout(updateAccordionHeight, 150);
   }
 
   function onDownload() {
